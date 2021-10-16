@@ -63,23 +63,6 @@ export const iphoneX = (
   }
 `;
 
-export const hover = (
-  isDesktop: boolean,
-  styles: FlattenSimpleInterpolation
-): FlattenSimpleInterpolation =>
-  isDesktop
-    ? css`
-        &:hover {
-          cursor: pointer;
-          ${styles}
-        }
-      `
-    : css`
-        &:active {
-          ${styles};
-        }
-      `;
-
 export const autoHover = (
   styles: FlattenSimpleInterpolation
 ): FlattenSimpleInterpolation => css`
@@ -96,6 +79,27 @@ export const autoHover = (
     }
   }
 `;
+
+// Для случая, когда стили ховера зависят от пропсов элемента (например, от темы
+// кнопки). Если использовать autoHover, стили для одних пропсов будут
+// перетирать стили для других, потому что они будут применяться ко всем
+// элементам одного типа (ко всем кнопкам).
+export const hover = (
+  isDesktop: boolean,
+  styles: FlattenSimpleInterpolation
+): FlattenSimpleInterpolation =>
+  isDesktop
+    ? css`
+        &:hover {
+          cursor: pointer;
+          ${styles}
+        }
+      `
+    : css`
+        &:active {
+          ${styles};
+        }
+      `;
 
 export const animate = (
   properties: string[] | string,
