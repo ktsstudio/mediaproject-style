@@ -18,9 +18,11 @@ const defaultMarkupConst: MarkupConst = {
   maxFontSize: null,
 };
 
-const markup: (mobileWindowSize?: WindowSize,
+const markup: (
+  mobileWindowSize?: WindowSize,
   desktopWindowSize?: WindowSize,
-  markupConst?: MarkupConst) => MarkupType = (
+  markupConst?: MarkupConst
+) => MarkupType = (
   mobileWindowSize = defaultMobileSize,
   desktopWindowSize = defaultDesktopSize,
   markupConst = defaultMarkupConst
