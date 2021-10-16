@@ -1,0 +1,171 @@
+@mixin mobile {
+  .mobile & {
+    @content;
+  }
+}
+
+@mixin desktop {
+  .desktop & {
+    @content;
+  }
+}
+
+@mixin ios {
+  .ios & {
+    @content;
+  }
+}
+
+@mixin android {
+  .android & {
+    @content;
+  }
+}
+
+@mixin minDeviceHeight($height) {
+  @media (min-device-height: $height) {
+    @content;
+  }
+}
+
+@mixin maxDeviceHeight($height) {
+  @media (max-device-height: $height) {
+    @content;
+  }
+}
+
+@mixin iphoneX {
+  .ios & {
+    @include minDeviceHeight('800px') {
+      @content;
+    }
+  }
+}
+
+@mixin hover {
+  :not(.mobile &) {
+    &:hover {
+      cursor: pointer;
+      @content;
+    }
+  }
+
+  .mobile & {
+    &:active {
+      @content;
+    }
+  }
+}
+
+@mixin animate($properties, $transitionTime: 0.2) {
+  $resultElements: ();
+  @each $property in $properties {
+    $resultElements: append(
+      $resultElements,
+      $property #{$transitionTime}s ease
+    );
+  }
+
+  transition: join($resultElements, (), comma);
+}
+
+@mixin square($side) {
+  width: $side;
+  height: $side;
+}
+
+@mixin centerPos($restProperties...) {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) join($restProperties, (), space);
+}
+
+@mixin centerPosX($restProperties...) {
+  left: 50%;
+  transform: translate3d(-50%, 0, 0) join($restProperties, (), space);
+}
+
+@mixin centerPosY($restProperties...) {
+  left: 50%;
+  transform: translate3d(0, -50%, 0) join($restProperties, (), space);
+}
+
+@mixin backgroundImageCover($image) {
+  background: url($image) no-repeat center / cover;
+}
+
+@mixin backgroundImageContain($image) {
+  background: url($image) no-repeat center / contain;
+}
+
+@mixin backgroundPosition {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: -1;
+}
+
+@mixin absoluteBackgroundPosition {
+  position: absolute;
+  @include backgroundPosition;
+}
+
+@mixin fixedBackgroundPosition {
+  position: fixed;
+  @include backgroundPosition;
+}
+
+@mixin hideScrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin inputStyles {
+  -webkit-appearance: none;
+  line-height: initial;
+  user-select: auto;
+}
+
+@mixin placeholderStyles {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin sidePadding($padding) {
+  padding-left: $padding;
+  padding-right: $padding;
+}
+
+@mixin contentWidth($sidePadding) {
+  width: calc(100vw - 2 * #{$sidePadding});
+}
+
+@mixin adaptiveSidePadding($mobilePadding, $desktopPadding) {
+  padding-left: $mobilePadding;
+  padding-right: $mobilePadding;
+
+  @include desktop {
+    padding-left: $desktopPadding;
+    padding-right: $desktopPadding;
+  }
+}
+
+@mixin adaptiveContentWidth($mobilePadding, $desktopPadding) {
+  width: calc(100vw - 2 * #{$mobilePadding});
+
+  @include desktop {
+    width: calc(100vw - 2 * #{$desktopPadding});
+  }
+}

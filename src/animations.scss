@@ -1,0 +1,33 @@
+@keyframes fade {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+}
+
+@mixin fadeAnimation {
+  animation: fade 5s linear infinite;
+}
+
+@keyframes centeredFade {
+  0%,
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+
+  50% {
+    opacity: 0.6;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@mixin centeredFadeAnimation {
+  animation: centeredFade 5s linear infinite;
+}
