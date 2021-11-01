@@ -1,16 +1,15 @@
-import checkIOS from './checkIOS';
-import checkMobile from './checkMobile';
 import markup from './markup';
-import useAndroidKeyboard from './useAndroidKeyboard';
-import useOrientationChange from './useOrientationChange';
+
 import {
   mobile,
   desktop,
   ios,
   android,
-  minDeviceHeight,
-  maxDeviceHeight,
-  iphoneX,
+  minHeight,
+  maxHeight,
+  portraitOrientation,
+  landscapeOrientation,
+  longScreen,
   hover,
   autoHover,
   animate,
@@ -22,6 +21,7 @@ import {
   backgroundImageContain,
   absoluteBackgroundPosition,
   fixedBackgroundPosition,
+  autoCropText,
   hideScrollbar,
   inputStyles,
   placeholderStyles,
@@ -30,22 +30,17 @@ import {
   adaptiveSidePadding,
   adaptiveContentWidth,
 } from './mixins';
-import { fadeAnimation, centeredFadeAnimation } from './animations';
-import { WindowSize, MarkupConst, MarkupType } from './types/markup';
 
-export {
-  checkIOS,
-  checkMobile,
-  markup,
-  useAndroidKeyboard,
-  useOrientationChange,
+const mixins = {
   mobile,
   desktop,
   ios,
   android,
-  minDeviceHeight,
-  maxDeviceHeight,
-  iphoneX,
+  minHeight,
+  maxHeight,
+  portraitOrientation,
+  landscapeOrientation,
+  longScreen,
   hover,
   autoHover,
   animate,
@@ -57,6 +52,7 @@ export {
   backgroundImageContain,
   absoluteBackgroundPosition,
   fixedBackgroundPosition,
+  autoCropText,
   hideScrollbar,
   inputStyles,
   placeholderStyles,
@@ -64,8 +60,20 @@ export {
   contentWidth,
   adaptiveSidePadding,
   adaptiveContentWidth,
+};
+
+import { fadeAnimation } from './animations';
+
+const animations = {
   fadeAnimation,
-  centeredFadeAnimation,
+};
+
+import { WindowSize, MarkupConst, MarkupType } from './types/markup';
+
+export {
+  markup,
+  mixins,
+  animations,
 };
 
 export { WindowSize, MarkupConst, MarkupType };

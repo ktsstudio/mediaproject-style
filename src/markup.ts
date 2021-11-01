@@ -1,5 +1,6 @@
+import { checkMobile } from '@ktsstudio/mediaproject-utils';
+
 import { WindowSize, MarkupConst, MarkupType } from './types/markup';
-import checkMobile from './checkMobile';
 
 const defaultMobileSize: WindowSize = {
   width: 375,
@@ -89,7 +90,7 @@ const markup: (
   round: function round(value: number): number {
     return Math.round(value * 2) / 2;
   },
-  checkMobile: checkMobile,
+  checkMobile,
 });
 
 export default markup;

@@ -32,34 +32,49 @@ export const android = (
   }
 `;
 
-export const minDeviceHeight = (
+export const minHeight = (
   height: string,
   content: FlattenSimpleInterpolation
 ): FlattenSimpleInterpolation => css`
-  @media (min-device-height: ${height}) {
+  @media (min-height: ${height}) {
     ${content};
   }
 `;
 
-export const maxDeviceHeight = (
+export const maxHeight = (
   height: string,
   content: FlattenSimpleInterpolation
 ): FlattenSimpleInterpolation => css`
-  @media (max-device-height: ${height}) {
+  @media (max-height: ${height}) {
     ${content};
   }
 `;
 
-export const iphoneX = (
+/**
+ * Миксин для устройств, у которых длина по крайней мере в 2 раза больше ширины.
+ * @param content
+ */
+export const longScreen = (
   content: FlattenSimpleInterpolation
 ): FlattenSimpleInterpolation => css`
-  .ios & {
-    ${minDeviceHeight(
-      '800px',
-      css`
-        ${content};
-      `
-    )};
+  @media (max-aspect-ratio: 1/2) {
+    ${content};
+  }
+`;
+
+export const portraitOrientation = (
+  content: FlattenSimpleInterpolation
+): FlattenSimpleInterpolation => css`
+  @media (orientation: portrait) {
+    ${content};
+  }
+`;
+
+export const landscapeOrientation = (
+  content: FlattenSimpleInterpolation
+): FlattenSimpleInterpolation => css`
+  @media (orientation: landscape) {
+    ${content};
   }
 `;
 
@@ -101,6 +116,12 @@ export const hover = (
         }
       `;
 
+
+/**
+ * Добавляет transition на указанные свойства.
+ * @param properties
+ * @param time
+ */
 export const animate = (
   properties: string[] | string,
   time = 0.2
@@ -121,7 +142,7 @@ export const square = (property: string): FlattenSimpleInterpolation => css`
 export const centerPos = (...restProperties: string[]) => css`
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%) ${restProperties.join(' ')};
+  transform: translate3d(-50%, -50%, 0) ${restProperties.join(' ')};
 `;
 
 export const centerPosX = (...restProperties: string[]) => css`
@@ -146,22 +167,32 @@ export const backgroundImageContain = (
   background: url(${image}) no-repeat center / contain;
 `;
 
-const backgroundPosition = css`
+const backgroundPosition = (zIndex = -1): FlattenSimpleInterpolation => css`
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
-  z-index: -1;
+  z-index: ${zIndex};
 `;
 
-export const absoluteBackgroundPosition = css`
+export const absoluteBackgroundPosition = (zIndex = -1): FlattenSimpleInterpolation => css`
   position: absolute;
-  ${backgroundPosition};
+  ${backgroundPosition(zIndex)};
 `;
 
-export const fixedBackgroundPosition = css`
+export const fixedBackgroundPosition = (zIndex = -1): FlattenSimpleInterpolation => css`
   position: fixed;
-  ${backgroundPosition};
+  ${backgroundPosition(zIndex)};
+`;
+
+
+/**
+ * Обрезает длинный текст и добавляет многоточие.
+ */
+export const autoCropText = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 export const hideScrollbar = css`
@@ -170,12 +201,19 @@ export const hideScrollbar = css`
   }
 `;
 
+/**
+ * Общие стили для инпута.
+ */
 export const inputStyles = css`
   -webkit-appearance: none;
   line-height: initial;
   user-select: auto;
 `;
 
+/**
+ * Добавляет стили для плейсхолдера с приставками для всех браузеров.
+ * @param styles
+ */
 export const placeholderStyles = (styles: FlattenSimpleInterpolation) => css`
   &::-webkit-input-placeholder {
     ${styles};

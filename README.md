@@ -12,11 +12,7 @@ Package with common styles for media projects.
 
 ### Methods
 
-* [checkIOS](./src/checkIOS.ts) - checks whether user agent fits IOS mobile device
-* [checkMobile](./src/checkMobile.ts) - checks whether user agent fits mobile device
 * [markup](./src/markup.ts) - tool for content resize via CSS rem
-* [useAndroidKeyboard](./src/useAndroidKeyboard.ts) - React hook for tracking keyboard presence on android device
-* [useOrientationChange](./src/useOrientationChange.ts) - React hook for tracking screen orientation change on mobile device
 
 ### Mixins and animations
 
@@ -28,7 +24,7 @@ Package with common styles for media projects.
 To use mixin or animation in styled-components, import it from lib:
 
 ```typescript
-import { square } from '@ktsstudio/mediaproject-styles';
+import { mixins } from '@ktsstudio/mediaproject-styles';
 ```
 
 To use mixin or animation in Sass, import file containing it:
