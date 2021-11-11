@@ -19,15 +19,28 @@ const defaultMarkupConst: MarkupConst = {
   maxFontSize: null,
 };
 
+/**
+ * Утилита для адаптивной верстки на rem.
+ * Подписывается на ресайз окна и изменяет размер шрифта у тега html пропорционально заданным размерам экрана.
+ * По умолчанию размер окна на десктопе - 1280х820, на мобильном устройстве - 375х667 (размер iPhone 6).
+ * @param {boolean} withCheckMobile Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile). По умолчанию true.
+ * @param {WindowSize} mobileWindowSize Размер экрана по умолчанию на мобильных устройствах
+ * @param {WindowSize} desktopWindowSize Размер экрана по умолчанию на десктопе
+ * @param {MarkupConst} markupConst Параметры утилиты с максимальным размером шрифта и т.д.
+ * @returns {MarkupType}
+ */
 const markup: (
+  withCheckMobile?: boolean,
   mobileWindowSize?: WindowSize,
   desktopWindowSize?: WindowSize,
   markupConst?: MarkupConst
 ) => MarkupType = (
+  withCheckMobile = true,
   mobileWindowSize = defaultMobileSize,
   desktopWindowSize = defaultDesktopSize,
   markupConst = defaultMarkupConst
 ) => ({
+  withCheckMobile,
   mobileWindowSize,
   desktopWindowSize,
   const: markupConst,
@@ -54,7 +67,11 @@ const markup: (
     const currentHeight = window.innerHeight;
     const currentWidth = window.innerWidth;
 
-    const { width, height } = this.checkMobile()
+    if (this.withCheckMobile) {
+      this.checkMobile();
+    }
+
+    const { width, height } = window.is_mobile
       ? this.mobileWindowSize
       : this.desktopWindowSize;
 

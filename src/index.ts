@@ -69,6 +69,7 @@ const animations = {
 };
 
 import { WindowSize, MarkupConst, MarkupType } from './types/markup';
+import { WindowType } from './types/window';
 
 export {
   markup,
@@ -76,4 +77,4 @@ export {
   animations,
 };
 
-export { WindowSize, MarkupConst, MarkupType };
+export { WindowSize, MarkupConst, MarkupType, WindowType };

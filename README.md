@@ -2,36 +2,36 @@
 
 # @ktsstudio/mediaproject-styles
 
-Package with common styles for media projects.
+Пакет с общими стилями для медиапроектов.
 
-### Usage
+### Использование
 
 `npm install @ktsstudio/mediaproject-styles`
 
 `yarn add @ktsstudio/mediaproject-styles`
 
-### Methods
+### Методы
 
-* [markup](./src/markup.ts) - tool for content resize via CSS rem
+* [markup](./src/markup.ts) - утилита для адаптивной верстки на rem
 
-### Mixins and animations
+### Миксины и анимации
 
-* [mixins.ts](./src/mixins.ts) - mixins for use in styled-components
-* [animations.ts](./src/animations.ts) - animations for use in styled-components
-* [mixins.scss](./src/mixins.scss) - mixins for use is Sass
-* [animations.scss](./src/animations.scss) - animations for use in Sass
+* [mixins.ts](./src/mixins.ts) - миксины для styled-components
+* [animations.ts](./src/animations.ts) - анимации для styled-components
+* [mixins.scss](./src/mixins.scss) - миксины для Sass
+* [animations.scss](./src/animations.scss) - анимации для Sass
 
-To use mixin or animation in styled-components, import it from lib:
+Чтобы использовать миксин или анимацию в проекте с styled-components, импортируйте его из библиотеки:
 
 ```typescript
 import { mixins } from '@ktsstudio/mediaproject-styles';
 ```
 
-To use mixin or animation in Sass, import file containing it:
+Чтобы использовать миксин или анимацию в проекте с Sass, импортируйте файл с ним:
 
 ```scss
 @import '~@ktsstudio/mediaproject-styles/dist/mixins';
 ```
 
-### Proposals & feedback
-Please, fell free to write on [hello@ktsstudio.ru](mailto:hello@ktsstudio.ru) with theme "mediaproject-styles feedback"
+### Обратная связь
+Любой фидбэк вы можете передать нам на почту [hello@ktsstudio.ru](mailto:hello@ktsstudio.ru) в письме с темой "mediaproject-styles"

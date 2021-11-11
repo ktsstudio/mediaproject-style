@@ -11,6 +11,7 @@ export interface MarkupConst {
 }
 
 export interface MarkupType {
+  withCheckMobile: boolean;
   mobileWindowSize: WindowSize;
   desktopWindowSize: WindowSize;
   const: MarkupConst;
