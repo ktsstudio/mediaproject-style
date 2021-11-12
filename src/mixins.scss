@@ -1,0 +1,187 @@
+@mixin mobile {
+  .mobile & {
+    @content;
+  }
+}
+
+@mixin desktop {
+  .desktop & {
+    @content;
+  }
+}
+
+@mixin ios {
+  .ios & {
+    @content;
+  }
+}
+
+@mixin android {
+  .android & {
+    @content;
+  }
+}
+
+@mixin minHeight($height) {
+  @media (min-height: $height) {
+    @content;
+  }
+}
+
+@mixin maxHeight($height) {
+  @media (max-height: $height) {
+    @content;
+  }
+}
+
+@mixin longScreen {
+  @media (max-aspect-ratio: 1/2) {
+    @content;
+  }
+}
+
+@mixin portraitOrientation {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin landscapeOrientation {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin hover {
+  :not(.mobile &) {
+    &:hover {
+      cursor: pointer;
+      @content;
+    }
+  }
+
+  .mobile & {
+    &:active {
+      @content;
+    }
+  }
+}
+
+@mixin animate($properties, $transitionTime: 0.2) {
+  $resultElements: ();
+  @each $property in $properties {
+    $resultElements: append(
+      $resultElements,
+      $property #{$transitionTime}s ease
+    );
+  }
+
+  transition: join($resultElements, (), comma);
+}
+
+@mixin square($side) {
+  width: $side;
+  height: $side;
+}
+
+@mixin centerPos($restProperties...) {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0) join($restProperties, (), space);
+}
+
+@mixin centerPosX($restProperties...) {
+  left: 50%;
+  transform: translate3d(-50%, 0, 0) join($restProperties, (), space);
+}
+
+@mixin centerPosY($restProperties...) {
+  left: 50%;
+  transform: translate3d(0, -50%, 0) join($restProperties, (), space);
+}
+
+@mixin backgroundImageCover($image) {
+  background: url($image) no-repeat center / cover;
+}
+
+@mixin backgroundImageContain($image) {
+  background: url($image) no-repeat center / contain;
+}
+
+@mixin backgroundPosition($zIndex: -1) {
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  z-index: $zIndex;
+}
+
+@mixin absoluteBackgroundPosition($zIndex: -1) {
+  position: absolute;
+  @include backgroundPosition($zIndex);
+}
+
+@mixin fixedBackgroundPosition($zIndex: -1) {
+  position: fixed;
+  @include backgroundPosition($zIndex);
+}
+
+@mixin autoCropText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin hideScrollbar {
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@mixin inputStyles {
+  -webkit-appearance: none;
+  line-height: initial;
+  user-select: auto;
+}
+
+@mixin placeholderStyles {
+  &::-webkit-input-placeholder {
+    @content;
+  }
+  &::-moz-placeholder {
+    @content;
+  }
+  &:-moz-placeholder {
+    @content;
+  }
+  &:-ms-input-placeholder {
+    @content;
+  }
+}
+
+@mixin sidePadding($padding) {
+  padding-left: $padding;
+  padding-right: $padding;
+}
+
+@mixin contentWidth($sidePadding) {
+  width: calc(100vw - 2 * #{$sidePadding});
+}
+
+@mixin adaptiveSidePadding($mobilePadding, $desktopPadding) {
+  padding-left: $mobilePadding;
+  padding-right: $mobilePadding;
+
+  @include desktop {
+    padding-left: $desktopPadding;
+    padding-right: $desktopPadding;
+  }
+}
+
+@mixin adaptiveContentWidth($mobilePadding, $desktopPadding) {
+  width: calc(100vw - 2 * #{$mobilePadding});
+
+  @include desktop {
+    width: calc(100vw - 2 * #{$desktopPadding});
+  }
+}
