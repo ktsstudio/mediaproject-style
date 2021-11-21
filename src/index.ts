@@ -1,5 +1,4 @@
 import markup from './markup';
-
 import {
   mobile,
   desktop,
@@ -71,10 +70,6 @@ const animations = {
 import { WindowSize, MarkupConst, MarkupType } from './types/markup';
 import { WindowType } from './types/window';
 
-export {
-  markup,
-  mixins,
-  animations,
-};
+export { markup, mixins, animations };
 
 export { WindowSize, MarkupConst, MarkupType, WindowType };

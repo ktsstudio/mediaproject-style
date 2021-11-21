@@ -116,7 +116,6 @@ export const hover = (
         }
       `;
 
-
 /**
  * Добавляет transition на указанные свойства.
  * @param properties
@@ -175,16 +174,19 @@ const backgroundPosition = (zIndex = -1): FlattenSimpleInterpolation => css`
   z-index: ${zIndex};
 `;
 
-export const absoluteBackgroundPosition = (zIndex = -1): FlattenSimpleInterpolation => css`
+export const absoluteBackgroundPosition = (
+  zIndex = -1
+): FlattenSimpleInterpolation => css`
   position: absolute;
   ${backgroundPosition(zIndex)};
 `;
 
-export const fixedBackgroundPosition = (zIndex = -1): FlattenSimpleInterpolation => css`
+export const fixedBackgroundPosition = (
+  zIndex = -1
+): FlattenSimpleInterpolation => css`
   position: fixed;
   ${backgroundPosition(zIndex)};
 `;
-
 
 /**
  * Обрезает длинный текст и добавляет многоточие.
