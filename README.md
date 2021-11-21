@@ -1,14 +1,14 @@
 ![kts](./logo.png)
 
-# @ktsstudio/mediaproject-styles
+# @ktsstudio/mediaproject-style
 
 Пакет с общими стилями для медиапроектов.
 
 ### Использование
 
-`npm install @ktsstudio/mediaproject-styles`
+`npm install @ktsstudio/mediaproject-style`
 
-`yarn add @ktsstudio/mediaproject-styles`
+`yarn add @ktsstudio/mediaproject-style`
 
 ### Методы
 
@@ -24,14 +24,14 @@
 Чтобы использовать миксин или анимацию в проекте с styled-components, импортируйте его из библиотеки:
 
 ```typescript
-import { mixins } from '@ktsstudio/mediaproject-styles';
+import { mixins } from '@ktsstudio/mediaproject-style';
 ```
 
 Чтобы использовать миксин или анимацию в проекте с Sass, импортируйте файл с ним:
 
 ```scss
-@import '~@ktsstudio/mediaproject-styles/dist/mixins';
+@import '~@ktsstudio/mediaproject-style/dist/mixins';
 ```
 
 ### Обратная связь
-Любой фидбэк вы можете передать нам на почту [hello@ktsstudio.ru](mailto:hello@ktsstudio.ru) в письме с темой "mediaproject-styles"
+Любой фидбэк вы можете передать нам на почту [hello@ktsstudio.ru](mailto:hello@ktsstudio.ru) в письме с темой "mediaproject-style"
