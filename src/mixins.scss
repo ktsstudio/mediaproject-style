@@ -1,23 +1,23 @@
 @mixin mobile {
-  .mobile & {
+  :global(.mobile) & {
     @content;
   }
 }
 
 @mixin desktop {
-  .desktop & {
+  :global(.desktop) & {
     @content;
   }
 }
 
 @mixin ios {
-  .ios & {
+  :global(.ios) & {
     @content;
   }
 }
 
 @mixin android {
-  .android & {
+  :global(.android) & {
     @content;
   }
 }
@@ -53,14 +53,14 @@
 }
 
 @mixin hover {
-  :not(.mobile &) {
+  :global(.desktop) & {
     &:hover {
       cursor: pointer;
       @content;
     }
   }
 
-  .mobile & {
+  :global(.mobile) & {
     &:active {
       @content;
     }
