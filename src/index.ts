@@ -28,6 +28,7 @@ import {
   contentWidth,
   adaptiveSidePadding,
   adaptiveContentWidth,
+  headerCenterElement,
 } from './mixins';
 
 const mixins = {
@@ -59,17 +60,28 @@ const mixins = {
   contentWidth,
   adaptiveSidePadding,
   adaptiveContentWidth,
+  headerCenterElement,
 };
 
-import { fadeAnimation } from './animations';
+import { fadeAnimation, appearAnimation } from './animations';
 
 const animations = {
   fadeAnimation,
+  appearAnimation,
 };
+
+import { getTopSafeArea, getBottomSafeArea, calcTopPadding, calcBottomPadding } from './utils';
+
+const utils = {
+  getTopSafeArea,
+  getBottomSafeArea,
+  calcTopPadding,
+  calcBottomPadding,
+}
 
 import { WindowSize, MarkupConst, MarkupType } from './types/markup';
 import { WindowType } from './types/window';
 
-export { markup, mixins, animations };
+export { markup, mixins, animations, utils };
 
 export { WindowSize, MarkupConst, MarkupType, WindowType };

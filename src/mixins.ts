@@ -263,3 +263,15 @@ export const adaptiveContentWidth = (
     width: calc(100vw - 2 * ${desktopSidePadding});
   `)}
 `;
+
+export const headerCenterElement = (...restTransform: string[]) => css`
+ ${android(css`
+    top: calc(var(--safe-area-inset-top) + var(--panelheader_height_android) / 2);
+ `)}
+ 
+ ${ios(css`
+    top: calc(var(--safe-area-inset-top) + var(--panelheader_height_ios) / 2);
+ `)}
+
+  transform: translateY(-50%) ${restTransform.join(' ')};
+`;

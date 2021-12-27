@@ -1,4 +1,4 @@
-@keyframes fade {
+@keyframes fadeKeyframes {
   0%,
   100% {
     opacity: 1;
@@ -12,5 +12,19 @@
 }
 
 @mixin fadeAnimation {
-  animation: fade 5s linear infinite;
+  animation: fadeKeyframes 5s linear infinite;
+}
+
+@keyframes appearKeyframes {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@mixin appearAnimation($duration: 500) {
+  animation: appearKeyframes #{$duration}ms linear backwards;
 }
