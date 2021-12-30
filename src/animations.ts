@@ -1,23 +1,35 @@
 import { css, keyframes } from 'styled-components';
 
-const fadeKeyframes = keyframes`
+const fadeKeyframes = (withScale = true) => keyframes`
   0%,
   100% {
     opacity: 1;
-    transform: scale(1.2);
+    ${
+      withScale &&
+      css`
+        transform: scale(1.2);
+      `
+    }
   }
 
   50% {
     opacity: 0.6;
-    transform: scale(1);
+    ${
+      withScale &&
+      css`
+        transform: scale(1);
+      `
+    }
   }
 `;
 
 /**
- * Анимация угасания и пульсирования для лоадера
+ * Анимация угасания для лоадера
+ * @param {number} duration Длительность анимации в секундах, по умолчанию 5
+ * @param {boolean} withScale Нужна ли дополнительная анимация пульсирования, по умолчанию true
  */
-export const fadeAnimation = css`
-  animation: ${fadeKeyframes} 5s linear infinite;
+export const fadeAnimation = (duration = 5, withScale = true) => css`
+  animation: ${fadeKeyframes(withScale)} ${duration}s linear infinite;
 `;
 
 const appearKeyframes = keyframes`
