@@ -81,7 +81,7 @@ export const landscapeOrientation = (
 export const autoHover = (
   styles: FlattenSimpleInterpolation
 ): FlattenSimpleInterpolation => css`
-  :not(.mobile &) {
+  .desktop & {
     &:hover {
       cursor: pointer;
       ${styles}
