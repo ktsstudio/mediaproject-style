@@ -1,23 +1,23 @@
 @mixin mobile {
-  .mobile & {
+  :global(.mobile) & {
     @content;
   }
 }
 
 @mixin desktop {
-  .desktop & {
+  :global(.desktop) & {
     @content;
   }
 }
 
 @mixin ios {
-  .ios & {
+  :global(.ios) & {
     @content;
   }
 }
 
 @mixin android {
-  .android & {
+  :global(.android) & {
     @content;
   }
 }
@@ -53,14 +53,14 @@
 }
 
 @mixin hover {
-  :not(.mobile &) {
+  :global(.desktop) & {
     &:hover {
       cursor: pointer;
       @content;
     }
   }
 
-  .mobile & {
+  :global(.mobile) & {
     &:active {
       @content;
     }
@@ -184,4 +184,18 @@
   @include desktop {
     width: calc(100vw - 2 * #{$desktopPadding});
   }
+}
+
+@mixin headerCenterElement($restTransform...) {
+  @include android {
+    top: calc(
+      var(--safe-area-inset-top) + var(--panelheader_height_android) / 2
+    );
+  }
+
+  @include ios {
+    top: calc(var(--safe-area-inset-top) + var(--panelheader_height_ios) / 2);
+  }
+
+  transform: translateY(-50%) join($restTransform, (), space);
 }

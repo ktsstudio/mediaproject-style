@@ -1,16 +1,34 @@
-@keyframes fade {
-  0%,
-  100% {
-    opacity: 1;
-    transform: scale(1.2);
+@mixin fadeAnimation($duration: 5, $withScale: true) {
+  @keyframes fadeKeyframes {
+    0%,
+    100% {
+      opacity: 1;
+      @if $withScale {
+        transform: scale(1.2);
+      }
+    }
+
+    50% {
+      opacity: 0.6;
+      @if $withScale {
+        transform: scale(1);
+      }
+    }
   }
 
-  50% {
-    opacity: 0.6;
-    transform: scale(1);
+  animation: fadeKeyframes #{$duration}s linear infinite;
+}
+
+@keyframes appearKeyframes {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
   }
 }
 
-@mixin fadeAnimation {
-  animation: fade 5s linear infinite;
+@mixin appearAnimation($duration: 500) {
+  animation: appearKeyframes #{$duration}ms linear backwards;
 }

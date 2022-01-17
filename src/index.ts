@@ -1,3 +1,4 @@
+import { fadeAnimation, appearAnimation } from './animations';
 import markup from './markup';
 import {
   mobile,
@@ -28,7 +29,16 @@ import {
   contentWidth,
   adaptiveSidePadding,
   adaptiveContentWidth,
+  headerCenterElement,
 } from './mixins';
+import { WindowSize, MarkupConst, MarkupType } from './types/markup';
+import { WindowType } from './types/window';
+import {
+  getTopSafeArea,
+  getBottomSafeArea,
+  calcTopPadding,
+  calcBottomPadding,
+} from './utils';
 
 const mixins = {
   mobile,
@@ -59,17 +69,21 @@ const mixins = {
   contentWidth,
   adaptiveSidePadding,
   adaptiveContentWidth,
+  headerCenterElement,
 };
-
-import { fadeAnimation } from './animations';
 
 const animations = {
   fadeAnimation,
+  appearAnimation,
 };
 
-import { WindowSize, MarkupConst, MarkupType } from './types/markup';
-import { WindowType } from './types/window';
+const utils = {
+  getTopSafeArea,
+  getBottomSafeArea,
+  calcTopPadding,
+  calcBottomPadding,
+};
 
-export { markup, mixins, animations };
+export { markup, mixins, animations, utils };
 
 export { WindowSize, MarkupConst, MarkupType, WindowType };
