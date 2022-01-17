@@ -180,10 +180,10 @@
   resolved "https://registry.npmjs.org/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@ktsstudio/mediaproject-utils@^3.0.0":
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/@ktsstudio/mediaproject-utils/-/mediaproject-utils-3.0.0.tgz#99c1934b17524b7572652f8674b50ece61b64488"
-  integrity sha512-qpKQEkwQ0yKqZKcJs3UcCJyU61Uq2DGnVtAeZQTj0OoAx4Y95ynq/VE5XyeDoK6ZuC+WPtHJXOGFHP+RvxjheA==
+"@ktsstudio/mediaproject-utils@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@ktsstudio/mediaproject-utils/-/mediaproject-utils-4.0.0.tgz#d6cd5c8f5802198660f1ee66c1806e021fe8ca11"
+  integrity sha512-iBIpVTQQgtPZ08kU/hGuYDx8fv7jpNBjybn+ikucNJDMRz1CCDoAWmTKtU1oT20nMCaI51MYiPPEykSJXVSOQw==
   dependencies:
     axios "^0.21.1"
 
@@ -2455,10 +2455,10 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.2.1:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/prettier/-/prettier-2.4.1.tgz"
-  integrity sha512-9fbDAXSBcc6Bs1mZrDYb3XKzDLm4EXXL9sC1LqKP5rZkT6KRr/rf9amVUcODVXgguK/isJz0d0hP72WeaKWsvA==
+prettier@^2.5.1:
+  version "2.5.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.5.1.tgz#fff75fa9d519c54cf0fce328c1017d94546bc56a"
+  integrity sha512-vBZcPRUR5MZJwoyi3ZoyQlc1rXeEck8KgeC9AwwOn+exuxLxq5toTRDTSaVrXHxelDMHy9zlicw8u66yxoSUFg==
 
 process-nextick-args@~2.0.0:
   version "2.0.1"

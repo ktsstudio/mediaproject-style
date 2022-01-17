@@ -8,13 +8,13 @@
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
   "scripts": {
-    "rm-source-maps": "rimraf public/**/*.js.map",
+    "rm-build": "rimraf dist",
     "lint": "eslint src --fix",
-    "codestyle": "prettier src --write \"*.{ts,js}?(x)\"",
+    "codestyle": "prettier --write \"src/**/*.{ts,tsx,js,jsx,scss}\"",
     "tsc-check": "tsc --skipLibCheck --noEmit --project tsconfig.json",
     "build-ts": "tsc --module es6 --target es6 --outDir dist --declarationDir dist/types",
     "build-styles": "cpx src/**/*.*css dist",
-    "build": "yarn run rm-source-maps; yarn run build-ts; yarn run build-styles",
+    "build": "yarn run rm-build; yarn run build-ts; yarn run build-styles",
     "precommit": "lint-staged"
   },
   "lint-staged": {
@@ -31,7 +31,7 @@
     "logo.png"
   ],
   "devDependencies": {
-    "@ktsstudio/mediaproject-utils": "^3.0.0",
+    "@ktsstudio/mediaproject-utils": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^4.13.0",
     "@typescript-eslint/parser": "^4.14.1",
     "cpx": "^1.5.0",
@@ -43,15 +43,15 @@
     "eslint-plugin-react": "^7.22.0",
     "husky": "^7.0.2",
     "lint-staged": "^11.0.0",
-    "prettier": "^2.2.1",
+    "prettier": "^2.5.1",
+    "react": "~17.0.0",
     "styled-components": "^5.3.3",
-    "typescript": "^4.1.3",
-    "react": "~17.0.0"
+    "typescript": "^4.1.3"
   },
   "peerDependencies": {
-    "@ktsstudio/mediaproject-utils": "^3.0.0",
-    "styled-components": "^5.3.1",
-    "react": "~17.0.0"
+    "@ktsstudio/mediaproject-utils": "^4.0.0",
+    "react": "~17.0.0",
+    "styled-components": "^5.3.1"
   },
   "repository": {
     "type": "git",

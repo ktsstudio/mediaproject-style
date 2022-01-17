@@ -16,8 +16,8 @@
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true
   },
-  "exclude": ["node_modules", "packages/*/node_modules"],
   "main": "./src/index.ts",
   "types": "./types/typings.d.ts",
-  "include": ["./src"]
+  "include": ["src", "types"],
+  "exclude": ["node_modules", "packages/*/node_modules"]
 }

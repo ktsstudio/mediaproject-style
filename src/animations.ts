@@ -1,4 +1,4 @@
-import { css, keyframes } from 'styled-components';
+import { css, FlattenSimpleInterpolation, keyframes } from 'styled-components';
 
 const fadeKeyframes = (withScale = true) => keyframes`
   0%,
@@ -28,7 +28,10 @@ const fadeKeyframes = (withScale = true) => keyframes`
  * @param {number} duration Длительность анимации в секундах, по умолчанию 5
  * @param {boolean} withScale Нужна ли дополнительная анимация пульсирования, по умолчанию true
  */
-export const fadeAnimation = (duration = 5, withScale = true) => css`
+export const fadeAnimation = (
+  duration = 5,
+  withScale = true
+): FlattenSimpleInterpolation => css`
   animation: ${fadeKeyframes(withScale)} ${duration}s linear infinite;
 `;
 
@@ -46,6 +49,8 @@ const appearKeyframes = keyframes`
  * Анимация плавного появления элемента
  * @param {number} duration Длительность анимации в миллисекундах, по умолчанию 500
  */
-export const appearAnimation = (duration = 500) => css`
+export const appearAnimation = (
+  duration = 500
+): FlattenSimpleInterpolation => css`
   animation: ${appearKeyframes} ${duration}ms linear backwards;
 `;

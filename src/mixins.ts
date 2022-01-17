@@ -138,18 +138,24 @@ export const square = (property: string): FlattenSimpleInterpolation => css`
   width: ${property};
 `;
 
-export const centerPos = (...restProperties: string[]) => css`
+export const centerPos = (
+  ...restProperties: string[]
+): FlattenSimpleInterpolation => css`
   top: 50%;
   left: 50%;
   transform: translate3d(-50%, -50%, 0) ${restProperties.join(' ')};
 `;
 
-export const centerPosX = (...restProperties: string[]) => css`
+export const centerPosX = (
+  ...restProperties: string[]
+): FlattenSimpleInterpolation => css`
   left: 50%;
   transform: translate3d(-50%, 0, 0) ${restProperties.join(' ')};
 `;
 
-export const centerPosY = (...restProperties: string[]) => css`
+export const centerPosY = (
+  ...restProperties: string[]
+): FlattenSimpleInterpolation => css`
   top: 50%;
   transform: translate3d(0, -50%, 0) ${restProperties.join(' ')};
 `;
@@ -216,7 +222,9 @@ export const inputStyles = css`
  * Добавляет стили для плейсхолдера с приставками для всех браузеров.
  * @param styles
  */
-export const placeholderStyles = (styles: FlattenSimpleInterpolation) => css`
+export const placeholderStyles = (
+  styles: FlattenSimpleInterpolation
+): FlattenSimpleInterpolation => css`
   &::-webkit-input-placeholder {
     ${styles};
   }
@@ -231,19 +239,21 @@ export const placeholderStyles = (styles: FlattenSimpleInterpolation) => css`
   }
 `;
 
-export const sidePadding = (padding: string) => css`
+export const sidePadding = (padding: string): FlattenSimpleInterpolation => css`
   padding-left: ${padding};
   padding-right: ${padding};
 `;
 
-export const contentWidth = (sidePadding: string) => css`
+export const contentWidth = (
+  sidePadding: string
+): FlattenSimpleInterpolation => css`
   width: calc(100vw - 2 * ${sidePadding});
 `;
 
 export const adaptiveSidePadding = (
   mobilePadding: string,
   desktopPadding: string
-) => css`
+): FlattenSimpleInterpolation => css`
   padding-left: ${mobilePadding};
   padding-right: ${mobilePadding};
 
@@ -256,7 +266,7 @@ export const adaptiveSidePadding = (
 export const adaptiveContentWidth = (
   mobileSidePadding: string,
   desktopSidePadding: string
-) => css`
+): FlattenSimpleInterpolation => css`
   width: calc(100vw - 2 * ${mobileSidePadding});
 
   ${desktop(css`
@@ -264,14 +274,18 @@ export const adaptiveContentWidth = (
   `)}
 `;
 
-export const headerCenterElement = (...restTransform: string[]) => css`
- ${android(css`
-    top: calc(var(--safe-area-inset-top) + var(--panelheader_height_android) / 2);
- `)}
- 
- ${ios(css`
+export const headerCenterElement = (
+  ...restTransform: string[]
+): FlattenSimpleInterpolation => css`
+  ${android(css`
+    top: calc(
+      var(--safe-area-inset-top) + var(--panelheader_height_android) / 2
+    );
+  `)}
+
+  ${ios(css`
     top: calc(var(--safe-area-inset-top) + var(--panelheader_height_ios) / 2);
- `)}
+  `)}
 
   transform: translateY(-50%) ${restTransform.join(' ')};
 `;

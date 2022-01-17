@@ -10,13 +10,15 @@ const getNumberProperty = (propertyName: string): number => {
  * Возвращает высоту верхней безопасной области в пикселях.
  * Использует переменную vkui --safe-area-inset-top.
  */
-export const getTopSafeArea = (): number => getNumberProperty('--safe-area-inset-top');
+export const getTopSafeArea = (): number =>
+  getNumberProperty('--safe-area-inset-top');
 
 /**
  * Возвращает высоту нижней безопасной области в пикселях.
  * Использует переменную vkui --safe-area-inset-bottom.
  */
-export const getBottomSafeArea = (): number => getNumberProperty('--safe-area-inset-bottom');
+export const getBottomSafeArea = (): number =>
+  getNumberProperty('--safe-area-inset-bottom');
 
 /**
  * Высчитывает высоту верхнего отступа, прибавляя высоту верхней безопасной области.
