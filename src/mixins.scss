@@ -96,7 +96,7 @@
 }
 
 @mixin centerPosY($restProperties...) {
-  left: 50%;
+  top: 50%;
   transform: translate3d(0, -50%, 0) join($restProperties, (), space);
 }
 
