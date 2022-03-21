@@ -1,5 +1,6 @@
 ### v2.0.1
 - [*] markup defaultMobileSize изменен на размер iphone x
+- [*] опечатка в миксине centerPosY (closing issue #4)
 
 ## v2.0.0
 - [+] appearAnimation
