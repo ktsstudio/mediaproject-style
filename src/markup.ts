@@ -4,7 +4,7 @@ import { WindowSize, MarkupConst, MarkupType } from './types/markup';
 
 const defaultMobileSize: WindowSize = {
   width: 375,
-  height: 667,
+  height: 812,
 };
 
 const defaultDesktopSize: WindowSize = {
