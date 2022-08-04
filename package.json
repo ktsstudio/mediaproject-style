@@ -1,12 +1,26 @@
 {
   "name": "@ktsstudio/mediaproject-style",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "KTS Studio",
   "license": "MIT",
   "description": "Package with common styles for media projects",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
   "types": "./dist/types/index.d.ts",
+  "exports": {
+    "./mixins": "./dist/mixins.js",
+    "./animations": "./dist/animations.js",
+    "./markup": "./dist/markup.js",
+    "./utils": "./dist/utils.js"
+  },
+  "typesVersions": {
+    "*": {
+      "mixins": ["dist/types/mixins.d.ts"],
+      "animations": ["dist/types/animations.d.ts"],
+      "markup": ["dist/types/markup.d.ts"],
+      "utils": ["dist/types/utils.d.ts"]
+    }
+  },
   "scripts": {
     "rm-build": "rimraf dist",
     "lint": "eslint src --fix",
@@ -14,7 +28,7 @@
     "tsc-check": "tsc --skipLibCheck --noEmit --project tsconfig.json",
     "build-ts": "tsc --module es6 --target es6 --outDir dist --declarationDir dist/types",
     "build-styles": "cpx src/**/*.*css dist",
-    "build": "yarn run rm-build; yarn run build-ts; yarn run build-styles",
+    "build": "yarn run rm-build && yarn run build-ts && yarn run build-styles",
     "precommit": "lint-staged"
   },
   "lint-staged": {
