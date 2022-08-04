@@ -40,7 +40,10 @@ import { hover } from '@ktsstudio/mediaproject-style/mixins';
 Для корректной работы библиотеки с Next.js необходимо:
 1) установить пакет [next-transpile-modules](https://www.npmjs.com/package/next-transpile-modules)
 2) подключить плагин в next.config.js
+
 ```
+// next.config.js
+
 const withTM = require('next-transpile-modules')(['@ktsstudio/mediaproject-style'], {
   resolveSymlinks: true,
 });
@@ -62,6 +65,7 @@ module.exports = (_phase, { defaultConfig }) => {
 ```
 
 3) При ssr использовать функции которые не содержат обращения к window.
+
 Пример:
 ```
 import { hover, square } from '@ktsstudio/mediaproject-style/mixins';
