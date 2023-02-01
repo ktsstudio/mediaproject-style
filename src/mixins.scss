@@ -101,11 +101,11 @@
 }
 
 @mixin backgroundImageCover($image) {
-  background: url($image) no-repeat center / cover;
+  background: url(#{$image}) no-repeat center / cover;
 }
 
 @mixin backgroundImageContain($image) {
-  background: url($image) no-repeat center / contain;
+  background: url(#{$image}) no-repeat center / contain;
 }
 
 @mixin backgroundPosition($zIndex: -1) {
