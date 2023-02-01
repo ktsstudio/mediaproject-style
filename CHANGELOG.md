@@ -1,5 +1,6 @@
 ### v2.0.3
 - [+] сборка на rollup
+- [*] getNumberProperty ([issue](https://github.com/ktsstudio/mediaproject-style/issues/5)
 
 ### v2.0.2
 - [*] экранированы переменные в миксинах
