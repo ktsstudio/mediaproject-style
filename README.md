@@ -36,7 +36,7 @@ import { hover } from '@ktsstudio/mediaproject-style/mixins';
 @import '~@ktsstudio/mediaproject-style/dist/mixins';
 ```
 
-### Использование с Next.js
+### Использование с Next.js (раньше 11 версии, с 11 версии Next.js поддерживает ES-модули и 1 и 2 пункты не нужны)
 Для корректной работы библиотеки с Next.js необходимо:
 1) установить пакет [next-transpile-modules](https://www.npmjs.com/package/next-transpile-modules)
 2) подключить плагин в next.config.js
