@@ -4,11 +4,14 @@
 
 Пакет с общими стилями для медиапроектов.
 
-### Использование
+## Использование
 
 `npm install @ktsstudio/mediaproject-style`
 
 `yarn add @ktsstudio/mediaproject-style`
+
+## Содержимое
+
 ### Методы
 
 * [markup](./src/markup.ts) - утилита для адаптивной верстки на rem
@@ -25,9 +28,9 @@
 Чтобы использовать миксин, анимацию или утилиту в проекте с styled-components, импортируйте нужный объект из библиотеки:
 
 ```typescript
-import { mixins } from '@ktsstudio/mediaproject-style';
+import { markup } from '@ktsstudio/mediaproject-style';
 или
-import { hover } from '@ktsstudio/mediaproject-style/mixins';
+import markup from '@ktsstudio/mediaproject-style/dist/es/markup';
 ```
 
 Чтобы использовать миксин, анимацию или утилиту в проекте с Sass, импортируйте файл с ними:
@@ -36,50 +39,26 @@ import { hover } from '@ktsstudio/mediaproject-style/mixins';
 @import '~@ktsstudio/mediaproject-style/dist/mixins';
 ```
 
-### Использование с Next.js (раньше 11 версии, с 11 версии Next.js поддерживает ES-модули и 1 и 2 пункты не нужны)
-Для корректной работы библиотеки с Next.js необходимо:
-1) установить пакет [next-transpile-modules](https://www.npmjs.com/package/next-transpile-modules)
-2) подключить плагин в next.config.js
+### Использование с SSR на примере Next.js
 
-```
-// next.config.js
-
-const withTM = require('next-transpile-modules')(['@ktsstudio/mediaproject-style'], {
-  resolveSymlinks: true,
-});
-
-const plugins = [
-  withTM,
-];
-
-const nextConfig = {
-  ...
-  compiler: {
-    styledComponents: true,
-  }
-}
-
-module.exports = (_phase, { defaultConfig }) => {
-  return plugins.reduce((acc, plugin) => plugin(acc), { ...defaultConfig, ...nextConfig })
-}
-```
-
-3) При ssr использовать функции которые не содержат обращения к window.
+Для корректной работы библиотеки с Next.js необходимо использовать функции, которые не содержат обращения к window.
 
 Пример:
-```
-import { hover, square } from '@ktsstudio/mediaproject-style/mixins';
-import { appearAnimation } from '@ktsstudio/mediaproject-style/animations';
+
+```typescript
+import markup from '@ktsstudio/mediaproject-style/dist/es/markup';
 ```
 
-3.1) В случае если функция нужна только на клиенте, можно подгрузить библиотеку асинхронно либо воспользоваться [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import)
-```
+В случае если функция нужна только на клиенте, можно подгрузить библиотеку асинхронно, либо воспользоваться [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import):
+
+```typescript
  React.useEffect(() => {
-    import('@ktsstudio/mediaproject-style/markup').then((module) => {
+    import('@ktsstudio/mediaproject-style/dist/es/markup').then((module) => {
       ...
     })
   }, []);
 ```
 
-### Обратная связь
+## Обратная связь
+
 Любой фидбэк вы можете передать нам на почту [hello@ktsstudio.ru](mailto:hello@ktsstudio.ru) в письме с темой "mediaproject-style"
