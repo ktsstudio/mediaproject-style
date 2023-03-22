@@ -185,17 +185,3 @@
     width: calc(100vw - 2 * #{$desktopPadding});
   }
 }
-
-@mixin headerCenterElement($restTransform...) {
-  @include android {
-    top: calc(
-      var(--safe-area-inset-top) + var(--panelheader_height_android) / 2
-    );
-  }
-
-  @include ios {
-    top: calc(var(--safe-area-inset-top) + var(--panelheader_height_ios) / 2);
-  }
-
-  transform: translateY(-50%) join($restTransform, (), space);
-}
