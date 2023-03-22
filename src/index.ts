@@ -29,16 +29,9 @@ import {
   contentWidth,
   adaptiveSidePadding,
   adaptiveContentWidth,
-  headerCenterElement,
 } from './mixins';
 import { WindowSize, MarkupConst, MarkupType } from './types/markup';
 import { WindowType } from './types/window';
-import {
-  getTopSafeArea,
-  getBottomSafeArea,
-  calcTopPadding,
-  calcBottomPadding,
-} from './utils';
 
 const mixins = {
   mobile,
@@ -69,7 +62,6 @@ const mixins = {
   contentWidth,
   adaptiveSidePadding,
   adaptiveContentWidth,
-  headerCenterElement,
 };
 
 const animations = {
@@ -77,13 +69,6 @@ const animations = {
   appearAnimation,
 };
 
-const utils = {
-  getTopSafeArea,
-  getBottomSafeArea,
-  calcTopPadding,
-  calcBottomPadding,
-};
-
-export { markup, mixins, animations, utils };
+export { markup, mixins, animations };
 
 export { WindowSize, MarkupConst, MarkupType, WindowType };

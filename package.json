@@ -1,6 +1,6 @@
 {
   "name": "@ktsstudio/mediaproject-style",
-  "version": "2.0.3",
+  "version": "3.0.0",
   "description": "Package with common styles for media projects",
   "author": "KTS Studio <hello@ktsstudio.ru> (https://kts.studio)",
   "repository": {
@@ -61,6 +61,7 @@
     "husky": "^7.0.2",
     "lint-staged": "^11.0.0",
     "prettier": "^2.5.1",
+    "rimraf": "^4.4.0",
     "rollup": "^3.12.0",
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "styled-components": "^5.3.3",

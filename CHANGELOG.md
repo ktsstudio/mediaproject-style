@@ -1,3 +1,6 @@
+### v3.0.0
+- [-] удалены миксины и утилиты, использующие переменные vkui
+
 ### v2.0.3
 - [+] сборка на rollup
 - [*] getNumberProperty ([issue](https://github.com/ktsstudio/mediaproject-style/issues/5))

@@ -1,7 +1,0 @@
-@function getTopPadding($extraPadding: '0px') {
-  @return calc(var(--safe-area-inset-top) + #{$extraPadding});
-}
-
-@function getBottomPadding($extraPadding: '0px') {
-  @return calc(var(--safe-area-inset-bottom) + #{$extraPadding});
-}
