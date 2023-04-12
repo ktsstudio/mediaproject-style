@@ -10,8 +10,17 @@ export interface MarkupConst {
   maxFontSize: number | null;
 }
 
+export interface MarkupProps {
+  withCheckMobile?: boolean;
+  checkMobile?: () => boolean;
+  mobileWindowSize?: WindowSize;
+  desktopWindowSize?: WindowSize;
+  markupConst?: MarkupConst;
+}
+
 export interface MarkupType {
   withCheckMobile: boolean;
+  checkMobile: () => boolean;
   mobileWindowSize: WindowSize;
   desktopWindowSize: WindowSize;
   const: MarkupConst;
@@ -20,5 +29,6 @@ export interface MarkupType {
   init: (maxFontSize?: number, fitOnResize?: boolean) => void;
   fit: VoidFunction;
   round: (value: number) => number;
-  checkMobile: () => boolean;
 }
+
+export type Markup = (props?: MarkupProps) => MarkupType;

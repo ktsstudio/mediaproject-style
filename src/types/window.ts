@@ -1,3 +1,3 @@
-import { WindowType as CommonWindowType } from '@ktsstudio/mediaproject-utils';
-
-export type WindowType = Pick<CommonWindowType, 'is_mobile'>;
+export type WindowType = {
+  is_mobile: boolean;
+};

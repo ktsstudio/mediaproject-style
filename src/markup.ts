@@ -1,6 +1,4 @@
-import { checkMobile } from '@ktsstudio/mediaproject-utils';
-
-import { WindowSize, MarkupConst, MarkupType } from './types/markup';
+import { WindowSize, MarkupConst, Markup } from './types/markup';
 
 const defaultMobileSize: WindowSize = {
   width: 375,
@@ -19,95 +17,109 @@ const defaultMarkupConst: MarkupConst = {
   maxFontSize: null,
 };
 
+const defaultCheckMobile = () => false;
+
+const defaultProps = {
+  withCheckMobile: true,
+  mobileWindowSize: defaultMobileSize,
+  desktopWindowSize: defaultDesktopSize,
+  markupConst: defaultMarkupConst,
+  checkMobile: defaultCheckMobile,
+};
+
 /**
  * Утилита для адаптивной верстки на rem.
  * Подписывается на ресайз окна и изменяет размер шрифта у тега html пропорционально заданным размерам экрана.
  * По умолчанию размер окна на десктопе - 1280х820, на мобильном устройстве - 375х667 (размер iPhone 6).
- * @param {boolean} withCheckMobile Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile). По умолчанию true.
- * @param {WindowSize} mobileWindowSize Размер экрана по умолчанию на мобильных устройствах
- * @param {WindowSize} desktopWindowSize Размер экрана по умолчанию на десктопе
- * @param {MarkupConst} markupConst Параметры утилиты с максимальным размером шрифта и т.д.
+ * @param {MarkupProps} props Параметры утилиты
+ * @param {boolean} props.withCheckMobile Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile). По умолчанию true.
+ * @param {() => boolean} props.checkMobile Функция для определения, является ли девайс мобильным устройством
+ * @param {WindowSize} props.mobileWindowSize Размер экрана по умолчанию на мобильных устройствах
+ * @param {WindowSize} props.desktopWindowSize Размер экрана по умолчанию на десктопе
+ * @param {MarkupConst} props.markupConst Параметры утилиты с максимальным размером шрифта и т.д.
  * @returns {MarkupType}
  */
-const markup: (
-  withCheckMobile?: boolean,
-  mobileWindowSize?: WindowSize,
-  desktopWindowSize?: WindowSize,
-  markupConst?: MarkupConst
-) => MarkupType = (
-  withCheckMobile = true,
-  mobileWindowSize = defaultMobileSize,
-  desktopWindowSize = defaultDesktopSize,
-  markupConst = defaultMarkupConst
-) => ({
-  withCheckMobile,
-  mobileWindowSize,
-  desktopWindowSize,
-  const: markupConst,
-  initResize: false,
-  currentFontSize: null,
-  init: function init(maxFontSize?: number, fitOnResize = false): void {
-    if (maxFontSize !== undefined) {
-      this.const.maxFontSize = maxFontSize;
-    }
+const markup: Markup = (props = {}) => {
+  const {
+    withCheckMobile,
+    checkMobile,
+    mobileWindowSize,
+    desktopWindowSize,
+    markupConst,
+  } = { ...defaultProps, ...props };
+  return {
+    withCheckMobile,
+    checkMobile,
+    mobileWindowSize,
+    desktopWindowSize,
+    const: markupConst,
+    initResize: false,
+    currentFontSize: null,
+    init: function init(maxFontSize?: number, fitOnResize = false): void {
+      if (maxFontSize !== undefined) {
+        this.const.maxFontSize = maxFontSize;
+      }
 
-    this.fit();
+      this.fit();
 
-    if (fitOnResize) {
+      if (!fitOnResize) {
+        return;
+      }
+
       window.addEventListener('resize', this.fit.bind(this));
       window.onresize = () => {
-        if (!this.initResize) {
-          this.initResize = true;
-          this.fit();
+        if (this.initResize) {
+          return;
         }
+
+        this.initResize = true;
+        this.fit();
       };
-    }
-  },
-  fit: function fit(): void {
-    const currentHeight = window.innerHeight;
-    const currentWidth = window.innerWidth;
+    },
+    fit: function fit(): void {
+      const { innerHeight: currentHeight, innerWidth: currentWidth } = window;
 
-    if (this.withCheckMobile) {
-      this.checkMobile();
-    }
+      if (this.withCheckMobile) {
+        this.checkMobile();
+      }
 
-    const { width, height } = window.is_mobile
-      ? this.mobileWindowSize
-      : this.desktopWindowSize;
+      const { width, height } = window.is_mobile
+        ? this.mobileWindowSize
+        : this.desktopWindowSize;
 
-    let scaleX = currentWidth / width;
-    let scaleY = currentHeight / height;
+      let scaleX = currentWidth / width;
+      let scaleY = currentHeight / height;
 
-    if (scaleX * height > currentHeight) {
-      scaleX = currentHeight / height;
-    }
+      if (scaleX * height > currentHeight) {
+        scaleX = currentHeight / height;
+      }
 
-    if (scaleY * width > currentWidth) {
-      scaleY = currentWidth / width;
-    }
+      if (scaleY * width > currentWidth) {
+        scaleY = currentWidth / width;
+      }
 
-    let currentScale = Math.min(scaleX, scaleY);
-    if (currentHeight > currentWidth * 2) {
-      currentScale +=
-        0.1 * (currentHeight / (currentWidth * 2 + currentHeight));
-    }
+      let currentScale = Math.min(scaleX, scaleY);
+      if (currentHeight > currentWidth * 2) {
+        currentScale +=
+          0.1 * (currentHeight / (currentWidth * 2 + currentHeight));
+      }
 
-    const result = currentScale * this.const.initScale;
+      const result = currentScale * this.const.initScale;
 
-    this.currentFontSize = this.round(result);
-    if (
-      this.const.maxFontSize !== null &&
-      this.currentFontSize > this.const.maxFontSize
-    ) {
-      this.currentFontSize = this.const.maxFontSize;
-    }
+      this.currentFontSize = this.round(result);
+      if (
+        this.const.maxFontSize !== null &&
+        this.currentFontSize > this.const.maxFontSize
+      ) {
+        this.currentFontSize = this.const.maxFontSize;
+      }
 
-    document.documentElement.style.fontSize = `${this.currentFontSize}px`;
-  },
-  round: function round(value: number): number {
-    return Math.round(value * 2) / 2;
-  },
-  checkMobile,
-});
+      document.documentElement.style.fontSize = `${this.currentFontSize}px`;
+    },
+    round: function round(value: number): number {
+      return Math.round(value * 2) / 2;
+    },
+  };
+};
 
 export default markup;
