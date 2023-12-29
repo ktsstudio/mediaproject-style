@@ -31,7 +31,6 @@ import {
   adaptiveContentWidth,
 } from './mixins';
 import { WindowSize, MarkupConst, MarkupType } from './types/markup';
-import { WindowType } from './types/window';
 
 const mixins = {
   mobile,
@@ -71,4 +70,4 @@ const animations = {
 
 export { markup, mixins, animations };
 
-export { WindowSize, MarkupConst, MarkupType, WindowType };
+export { WindowSize, MarkupConst, MarkupType };

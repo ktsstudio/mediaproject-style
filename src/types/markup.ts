@@ -11,16 +11,13 @@ export interface MarkupConst {
 }
 
 export interface MarkupProps {
-  withCheckMobile?: boolean;
-  checkMobile?: () => boolean;
+  isMobile: boolean;
   mobileWindowSize?: WindowSize;
   desktopWindowSize?: WindowSize;
   markupConst?: MarkupConst;
 }
 
 export interface MarkupType {
-  withCheckMobile: boolean;
-  checkMobile: () => boolean;
   mobileWindowSize: WindowSize;
   desktopWindowSize: WindowSize;
   const: MarkupConst;
@@ -31,4 +28,4 @@ export interface MarkupType {
   round: (value: number) => number;
 }
 
-export type Markup = (props?: MarkupProps) => MarkupType;
+export type Markup = (props: MarkupProps) => MarkupType;

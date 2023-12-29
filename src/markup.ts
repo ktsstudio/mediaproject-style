@@ -17,39 +17,27 @@ const defaultMarkupConst: MarkupConst = {
   maxFontSize: null,
 };
 
-const defaultCheckMobile = () => false;
-
-const defaultProps = {
-  withCheckMobile: true,
-  mobileWindowSize: defaultMobileSize,
-  desktopWindowSize: defaultDesktopSize,
-  markupConst: defaultMarkupConst,
-  checkMobile: defaultCheckMobile,
-};
-
 /**
  * Утилита для адаптивной верстки на rem.
  * Подписывается на ресайз окна и изменяет размер шрифта у тега html пропорционально заданным размерам экрана.
  * По умолчанию размер окна на десктопе - 1280х820, на мобильном устройстве - 375х667 (размер iPhone 6).
  * @param {MarkupProps} props Параметры утилиты
- * @param {boolean} props.withCheckMobile Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile). По умолчанию true.
- * @param {() => boolean} props.checkMobile Функция для определения, является ли девайс мобильным устройством
+ * @param {boolean} props.isMobile Является ли девайс мобильным устройством.
  * @param {WindowSize} props.mobileWindowSize Размер экрана по умолчанию на мобильных устройствах
  * @param {WindowSize} props.desktopWindowSize Размер экрана по умолчанию на десктопе
  * @param {MarkupConst} props.markupConst Параметры утилиты с максимальным размером шрифта и т.д.
  * @returns {MarkupType}
  */
-const markup: Markup = (props = {}) => {
+const markup: Markup = ({ isMobile, ...props }) => {
   const {
-    withCheckMobile,
-    checkMobile,
-    mobileWindowSize,
-    desktopWindowSize,
-    markupConst,
-  } = { ...defaultProps, ...props };
+    mobileWindowSize = defaultMobileSize,
+    desktopWindowSize = defaultDesktopSize,
+    markupConst = defaultMarkupConst,
+  } = {
+    ...props,
+  };
+
   return {
-    withCheckMobile,
-    checkMobile,
     mobileWindowSize,
     desktopWindowSize,
     const: markupConst,
@@ -79,11 +67,7 @@ const markup: Markup = (props = {}) => {
     fit: function fit(): void {
       const { innerHeight: currentHeight, innerWidth: currentWidth } = window;
 
-      if (this.withCheckMobile) {
-        this.checkMobile();
-      }
-
-      const { width, height } = window.is_mobile
+      const { width, height } = isMobile
         ? this.mobileWindowSize
         : this.desktopWindowSize;
 
