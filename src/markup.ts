@@ -20,7 +20,7 @@ const defaultMarkupConst: MarkupConst = {
 /**
  * Утилита для адаптивной верстки на rem.
  * Подписывается на ресайз окна и изменяет размер шрифта у тега html пропорционально заданным размерам экрана.
- * По умолчанию размер окна на десктопе - 1280х820, на мобильном устройстве - 375х667 (размер iPhone 6).
+ * По умолчанию размер окна на десктопе - 1280х820, на мобильном устройстве - 375х812 (размер iPhone X).
  * @param {MarkupProps} props Параметры утилиты
  * @param {boolean} props.isMobile Является ли девайс мобильным устройством.
  * @param {WindowSize} props.mobileWindowSize Размер экрана по умолчанию на мобильных устройствах
@@ -28,15 +28,12 @@ const defaultMarkupConst: MarkupConst = {
  * @param {MarkupConst} props.markupConst Параметры утилиты с максимальным размером шрифта и т.д.
  * @returns {MarkupType}
  */
-const markup: Markup = ({ isMobile, ...props }) => {
-  const {
-    mobileWindowSize = defaultMobileSize,
-    desktopWindowSize = defaultDesktopSize,
-    markupConst = defaultMarkupConst,
-  } = {
-    ...props,
-  };
-
+const markup: Markup = ({
+  isMobile,
+  mobileWindowSize = defaultMobileSize,
+  desktopWindowSize = defaultDesktopSize,
+  markupConst = defaultMarkupConst,
+}) => {
   return {
     mobileWindowSize,
     desktopWindowSize,
