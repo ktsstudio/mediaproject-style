@@ -32,6 +32,22 @@ export const android = (
   }
 `;
 
+export const mvk = (
+  styles: FlattenSimpleInterpolation
+): FlattenSimpleInterpolation => css`
+  .mvk & {
+    ${styles}
+  }
+`;
+
+export const odr = (
+  styles: FlattenSimpleInterpolation
+): FlattenSimpleInterpolation => css`
+  .odr & {
+    ${styles}
+  }
+`;
+
 export const minHeight = (
   height: string,
   content: FlattenSimpleInterpolation
@@ -161,15 +177,23 @@ export const centerPosY = (
 `;
 
 export const backgroundImageCover = (
-  image: string
+  image?: string
 ): FlattenSimpleInterpolation => css`
-  background: url(${image}) no-repeat center / cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  ${image ? `background-image: url(${image});` : ''}
 `;
 
 export const backgroundImageContain = (
-  image: string
+  image?: string
 ): FlattenSimpleInterpolation => css`
-  background: url(${image}) no-repeat center / contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+
+  ${image ? `background-image: url(${image});` : ''}
 `;
 
 const backgroundPosition = (zIndex = -1): FlattenSimpleInterpolation => css`
@@ -273,3 +297,200 @@ export const adaptiveContentWidth = (
     width: calc(100vw - 2 * ${desktopSidePadding});
   `)}
 `;
+
+/** Умножает на один и тот же множитель переданные ширину и высоту */
+export const ratioWidthHeight = (
+  width: string,
+  height: string,
+  factor = 1
+): FlattenSimpleInterpolation => css`
+  width: calc(${width} * ${factor});
+  height: calc(${height} * ${factor});
+`;
+
+export const aspectRatio = (
+  width: number,
+  height: number
+): FlattenSimpleInterpolation => {
+  const aspectRatioValue = width / height;
+
+  return css`
+    aspect-ratio: ${aspectRatioValue};
+
+    @supports not (aspect-ratio: ${aspectRatioValue}) {
+      &::after {
+        content: "";
+        display: block;
+        width: 100%;
+        padding-bottom: calc(100 * (${height} / ${width}));
+      }
+    }
+  `;
+};
+
+/** Фиксит в safari мерцание острых углов при overflow:hidden и border-radius */
+export const fixSafariRadiusOverflow = css`
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+`;
+
+/**
+ * Кастомизирует нативный скролбар
+ *
+ * @param config - объект с настройками
+ * @param config.thumbColor Цвет ползунка
+ * @param config.bgColor Цвет фона области прокрутки
+ * @param config.size Размер скролбара. Для горизонтального это высота, для вертикального - ширина
+ * @param config.radius Скругление ползунка и фона. Необязательный параметр, по умолчанию без скругления
+ * @param config.orientation Значение overflow: all | y | x. Необязательный параметр, по умолчанию all
+ */
+export const customScrollbar = (
+  {
+    thumbColor,
+    bgColor,
+    size,
+    radius = 0,
+    orientation = 'all',
+  }: {
+    thumbColor: string,
+    bgColor: string,
+    size: number,
+    radius?: number,
+    orientation?: string,
+  }
+): FlattenSimpleInterpolation => {
+  const commonStyles = css`
+    &::-webkit-scrollbar-track {
+      background-color: ${bgColor};
+      border-radius: ${radius}px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: ${radius}px;
+      box-shadow: 0 0 20px 20px ${thumbColor} inset;
+    }
+
+    /* стилизация элементов прокрутки для Firefox */
+    scrollbar-color: ${thumbColor} ${bgColor};
+    scrollbar-width: ${size}px;
+
+    /* стилизация элементов прокрутки для IE и Edge */
+    -ms-overflow-style: none;
+    scrollbar-base-color: ${bgColor};
+    scrollbar-face-color: ${thumbColor};
+    scrollbar-arrow-color: ${bgColor};
+  `;
+
+  switch (orientation) {
+    case 'x':
+      return css`
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        &::-webkit-scrollbar {
+          width: 0;
+          height: ${size}px;
+        }
+
+        ${commonStyles};
+      `;
+
+    case 'y':
+      return css`
+        overflow-x: hidden;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          width: ${size}px;
+          height: 0;
+        }
+
+        ${commonStyles};
+      `;
+
+    default:
+      return css`
+        overflow: auto;
+
+        &::-webkit-scrollbar {
+          width: ${size}px;
+          height: ${size}px;
+          position: absolute;
+          right: 0;
+          top: 0;
+        }
+
+        ${commonStyles};
+      `;
+  }
+};
+
+/**
+ * Проверка поддержки __flexbox gaps__ по наиболее близкому по поддержке свойству
+ * @link https://github.com/w3c/csswg-drafts/issues/3559#issuecomment-1758459996
+ */
+export const ifFlexGapNotSupported = (
+  styles: FlattenSimpleInterpolation
+): FlattenSimpleInterpolation => css`
+  @supports not (inset: 0) {
+    ${styles}
+  }
+`;
+
+/**
+ * Установка __flexbox gaps__ с простым вариантом fallback
+ *
+ * (!) В случае fallback'а на контейнере будут установлены отрицательные margin
+ */
+export const flexGap = (
+  row: string,
+  col: string
+): FlattenSimpleInterpolation => css`
+  gap: ${row} ${col};
+
+  ${ifFlexGapNotSupported(css`
+    margin: calc(-1 * ${row} / 2) calc(-1 * ${col} / 2);
+
+    & > * {
+      margin: calc(${row} / 2) calc(${col} / 2);
+    }
+  `)}
+`;
+
+export const pxToRem = (
+  px: number,
+  baseRemInPx = 16
+): number => px / baseRemInPx;
+
+export const round = (
+  number: number,
+  decimals: number
+): number => Number(number.toFixed(decimals));
+
+/**
+ * Задание адаптивного размера
+ * @link https://www.smashingmagazine.com/2022/10/fluid-typography-clamp-sass-functions/
+ */
+export const fluid = (
+  minSize: number,
+  maxSize: number,
+  minBreakpoint = 320,
+  maxBreakpoint = 1440,
+  unit = 'vw'
+): string => {
+  const slope = (maxSize - minSize) / (maxBreakpoint - minBreakpoint);
+  const slopeToUnit = round(slope * 100, 3);
+  const interceptRem = round(pxToRem(minSize - slope * minBreakpoint), 3);
+  const minSizeRem = round(pxToRem(minSize), 3);
+  const maxSizeRem = round(pxToRem(maxSize), 3);
+
+  return `min(
+    max(${minSizeRem}rem, ${slopeToUnit}${unit} + ${interceptRem}rem),
+    ${maxSizeRem}rem
+  )`;
+};
+
+export const safeTop = (padding: string): string =>
+  `calc(${padding} + env(safe-area-inset-top))`;
+
+export const safeBottom = (padding: string): string =>
+  `calc(${padding} + env(safe-area-inset-bottom))`;
