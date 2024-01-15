@@ -3,22 +3,28 @@ export interface WindowSize {
   height: number;
 }
 
-export interface MarkupConst {
-  initScale: number;
-  maxAspect: number;
-  minAspect: number;
-  maxFontSize: number | null;
-}
-
-export interface MarkupType {
-  withCheckMobile: boolean;
-  mobileWindowSize: WindowSize;
-  desktopWindowSize: WindowSize;
-  const: MarkupConst;
-  initResize: boolean;
-  currentFontSize: number | null;
-  init: (maxFontSize?: number, fitOnResize?: boolean) => void;
+export interface IMarkup {
+  currentHtmlFontSize: number | null;
   fit: VoidFunction;
   round: (value: number) => number;
-  checkMobile: () => boolean;
+  remToPx: (rem: number) => number | null;
+  pxToRem: (px: number) => string;
+  destroy: VoidFunction;
+}
+
+export type MarkupConfig = {
+  /** Пересчитывать ли размер шрифта при ресайзе экрана */
+  isFitOnResize?: boolean,
+  /** Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile) */
+  withCheckMobile?: boolean,
+  /** Размеры мобильного девайса, под который ориентированы макеты */
+  mobileWindowSize?: WindowSize,
+  /** Размеры десктопного девайса, под который ориентированы макеты */
+  desktopWindowSize?: WindowSize,
+  /** Размер шрифта html, то есть значение 1rem */
+  htmlFontSize?: number;
+  /** Минимальный размер шрифта html, чтобы содержимое страницы не было слишком мелким */
+  minFontSize?: number | null;
+  /** Максимальный размер шрифта html */
+  maxFontSize?: number | null;
 }
