@@ -470,11 +470,14 @@ export const round = (
  * Задание адаптивного размера
  * @link https://www.smashingmagazine.com/2022/10/fluid-typography-clamp-sass-functions/
  */
+const MIN_BREAKPOINT = 320;
+const MAX_BREAKPOINT = 1440;
+
 export const fluid = (
   minSize: number,
   maxSize: number,
-  minBreakpoint = 320,
-  maxBreakpoint = 1440,
+  minBreakpoint = MIN_BREAKPOINT,
+  maxBreakpoint = MAX_BREAKPOINT,
   unit = 'vw'
 ): string => {
   const slope = (maxSize - minSize) / (maxBreakpoint - minBreakpoint);
