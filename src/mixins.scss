@@ -99,20 +99,44 @@
   height: $side;
 }
 
-@mixin centerPos($restProperties...) {
+/// Центрирует элемент
+///
+/// @param $config - scss map с настройками
+/// @param $config[is-3d] Использовать ли translate3d() вместо translate()
+/// @param $config[axis] Ось, относительно которой центрировать. Необязательный параметр. По умолчанию центрируется по обеим осям
+/// @param $config[properties] Дополнительные значения transform (rotate, scale и т.д.) Необязательный параметр.
+///
+/// @example
+///   @include centerPos;
+///
+/// @example
+///   @include centerPos((
+///     is-3d: true,
+///     axis: y,
+///     properties: scale(.5) rotate(45deg)
+///   ));
+@mixin centerPos($config: (
+  is-3d: false,
+)) {
+  $x: if(
+    map.get($config, axis) == x or not map.get($config, axis),
+    -50%,
+    0
+  );
+  $y: if(
+    map.get($config, axis) == y or not map.get($config, axis),
+    -50%,
+    0
+  );
+  $translate: if(
+    map.get($config, is-3d),
+    translate3d($x, $y, 0),
+    translate($x, $y)
+  );
+
   top: 50%;
   left: 50%;
-  transform: translate3d(-50%, -50%, 0) join($restProperties, (), space);
-}
-
-@mixin centerPosX($restProperties...) {
-  left: 50%;
-  transform: translate3d(-50%, 0, 0) join($restProperties, (), space);
-}
-
-@mixin centerPosY($restProperties...) {
-  top: 50%;
-  transform: translate3d(0, -50%, 0) join($restProperties, (), space);
+  transform: $translate map.get($config, properties);
 }
 
 @mixin backgroundImageCover($image: false) {

@@ -1,3 +1,9 @@
+### v4.0.0
+- [+] новые миксины: `mvk`, `odr`, `ratioWidthHeight`, `aspectRatio`, `fixSafariRadiusOverflow`, `customScrollbar`, `ifFlexGapNotSupported`, `flexGap`
+- [+] новые функции: `px-to-rem`, `round`, `fluid`, `safe-top`, `safe-bottom`
+- [*] миксины `backgroundImageCover`, `backgroundImageContain`, `centerPos`
+- [*] утилита markup переписана на классах, появилась возможность обращаться к `currentHtmlFontSize`
+
 ### v3.0.0
 - [-] удалены миксины и утилиты, использующие переменные vkui
 
