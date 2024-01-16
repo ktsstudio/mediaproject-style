@@ -146,11 +146,11 @@ export default class Markup implements IMarkup {
   }
 
   remToPx(rem: number): number {
-    return Math.round(rem * this._currentHtmlFontSize * 2) / 2;
+    return this.round(rem * this._currentHtmlFontSize);
   }
 
   pxToRem(px: number): string {
-    return px / 10 + 'rem';
+    return `${px / this._currentHtmlFontSize}rem`;
   }
 
   destroy(): void {
