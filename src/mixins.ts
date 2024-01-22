@@ -330,7 +330,10 @@ export const aspectRatio = (
   `;
 };
 
-/** Фиксит в safari мерцание острых углов при overflow:hidden и border-radius */
+/**
+ * Фиксит в safari мерцание острых углов при overflow:hidden и border-radius
+ * Здесь data:image/png - это квадратное изображение 1x1 с черным фоном
+ * */
 export const fixSafariRadiusOverflow = css`
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 `;
@@ -494,8 +497,8 @@ export const fluid = (
   )`;
 };
 
-export const safeTop = (value = '0px'): string =>
+export const safeTopValue = (value = '0px'): string =>
   `calc(${value} + env(safe-area-inset-top))`;
 
-export const safeBottom = (value = '0px'): string =>
+export const safeBottomValue = (value = '0px'): string =>
   `calc(${value} + env(safe-area-inset-bottom))`;
