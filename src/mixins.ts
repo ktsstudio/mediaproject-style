@@ -154,27 +154,29 @@ export const square = (property: string): FlattenSimpleInterpolation => css`
   width: ${property};
 `;
 
-export const centerPos = (
-  ...restProperties: string[]
-): FlattenSimpleInterpolation => css`
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0) ${restProperties.join(' ')};
-`;
+/**
+ * Центрирует элемент
+ *
+ * @param config Конфиг с настройками
+ * @param config.is3d Использовать ли translate3d() вместо translate(). Необязательный параметр
+ * @param config.axis Ось, относительно которой центрировать. Необязательный параметр. По умолчанию центрируется по обеим осям
+ * @param config.properties Дополнительные значения transform (rotate, scale и т.д.) Необязательный параметр
+ */
+export const centerPos = (config?: {
+  is3d?: boolean;
+  axis?: 'x' | 'y';
+  properties?: string;
+}): FlattenSimpleInterpolation => {
+  const x = !config?.axis || config?.axis === 'x' ? '-50%' : '0';
+  const y = !config?.axis || config?.axis === 'y' ? '-50%' : '0';
+  const translate = config?.is3d ? `translate3d(${x}, ${y}, 0)` : `translate(${x}, ${y})`;
 
-export const centerPosX = (
-  ...restProperties: string[]
-): FlattenSimpleInterpolation => css`
-  left: 50%;
-  transform: translate3d(-50%, 0, 0) ${restProperties.join(' ')};
-`;
-
-export const centerPosY = (
-  ...restProperties: string[]
-): FlattenSimpleInterpolation => css`
-  top: 50%;
-  transform: translate3d(0, -50%, 0) ${restProperties.join(' ')};
-`;
+  return css`
+    top: 50%;
+    left: 50%;
+    transform: ${translate} ${config?.properties};
+  `;
+};
 
 export const backgroundImageCover = (
   image?: string
@@ -322,7 +324,7 @@ export const aspectRatio = (
         content: "";
         display: block;
         width: 100%;
-        padding-bottom: calc(100 * (${height} / ${width}));
+        padding-bottom: calc(100% * (${height} / ${width}));
       }
     }
   `;

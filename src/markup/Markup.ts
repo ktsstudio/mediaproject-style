@@ -22,7 +22,7 @@ const DEFAULT_DESKTOP_SIZE: WindowSize = {
 };
 
 export default class Markup implements IMarkup {
-  /** Пересчитывать ли размер шрифта при ресайзе экрана */
+  /** Пересчитывать ли размер шрифта при ресайзе экрана или перевороте экрана моб. устройства */
   private readonly _isFitOnResize: boolean;
 
   /** Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile) */
@@ -149,8 +149,8 @@ export default class Markup implements IMarkup {
     return this.round(rem * this._currentHtmlFontSize);
   }
 
-  pxToRem(px: number): string {
-    return `${px / this._currentHtmlFontSize}rem`;
+  pxToRem(px: number): number {
+    return px / this._currentHtmlFontSize;
   }
 
   destroy(): void {

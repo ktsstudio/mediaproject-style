@@ -8,12 +8,12 @@ export interface IMarkup {
   fit: VoidFunction;
   round: (value: number) => number;
   remToPx: (rem: number) => number | null;
-  pxToRem: (px: number) => string;
+  pxToRem: (px: number) => number;
   destroy: VoidFunction;
 }
 
 export type MarkupConfig = {
-  /** Пересчитывать ли размер шрифта при ресайзе экрана */
+  /** Пересчитывать ли размер шрифта при ресайзе экрана или перевороте экрана моб. устройства */
   isFitOnResize?: boolean,
   /** Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile) */
   withCheckMobile?: boolean,
