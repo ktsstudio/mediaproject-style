@@ -416,10 +416,10 @@
   );
 }
 
-@function safe-top($value) {
+@function safe-top($value: 0) {
   @return calc($value + env(safe-area-inset-top));
 }
 
-@function safe-bottom($value) {
+@function safe-bottom($value: 0) {
   @return calc($value + env(safe-area-inset-bottom));
 }

@@ -494,8 +494,8 @@ export const fluid = (
   )`;
 };
 
-export const safeTop = (padding: string): string =>
-  `calc(${padding} + env(safe-area-inset-top))`;
+export const safeTop = (value = '0px'): string =>
+  `calc(${value} + env(safe-area-inset-top))`;
 
-export const safeBottom = (padding: string): string =>
-  `calc(${padding} + env(safe-area-inset-bottom))`;
+export const safeBottom = (value = '0px'): string =>
+  `calc(${value} + env(safe-area-inset-bottom))`;
