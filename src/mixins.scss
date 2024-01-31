@@ -1,5 +1,5 @@
-@use "sass:math";
-@use "sass:map";
+@use 'sass:math';
+@use 'sass:map';
 
 @mixin mobile {
   :global(.mobile) & {
@@ -120,19 +120,13 @@
 ///     axis: y,
 ///     properties: scale(.5) rotate(45deg)
 ///   ));
-@mixin centerPos($config: (
-  is-3d: false,
-)) {
-  $x: if(
-    map.get($config, axis) == x or not map.get($config, axis),
-    -50%,
-    0
-  );
-  $y: if(
-    map.get($config, axis) == y or not map.get($config, axis),
-    -50%,
-    0
-  );
+@mixin centerPos(
+  $config: (
+    is-3d: false,
+  )
+) {
+  $x: if(map.get($config, axis) == x or not map.get($config, axis), -50%, 0);
+  $y: if(map.get($config, axis) == y or not map.get($config, axis), -50%, 0);
   $translate: if(
     map.get($config, is-3d),
     translate3d($x, $y, 0),
@@ -259,7 +253,7 @@
 
   @supports not (aspect-ratio: $aspectRatio) {
     &::after {
-      content: "";
+      content: '';
       display: block;
       width: 100%;
       padding-bottom: calc(100% * ($height / $width));
@@ -292,7 +286,11 @@
   $bgColor: map.get($config, bg-color);
   $size: map.get($config, size);
   $radius: if(map.get($config, radius), map.get($config, radius), 0);
-  $orientation: if(map.get($config, orientation), map.get($config, orientation), all);
+  $orientation: if(
+    map.get($config, orientation),
+    map.get($config, orientation),
+    all
+  );
 
   @if $orientation == all {
     overflow: auto;

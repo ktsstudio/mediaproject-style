@@ -4,7 +4,7 @@ import Markup from './Markup';
 
 let markup: Markup;
 
-const initMarkup = (config?: MarkupConfig) => {
+const initMarkup = (config?: MarkupConfig): void => {
   markup = new Markup(config);
 };
 

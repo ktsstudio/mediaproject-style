@@ -14,17 +14,17 @@ export interface IMarkup {
 
 export type MarkupConfig = {
   /** Пересчитывать ли размер шрифта при ресайзе экрана или перевороте экрана моб. устройства */
-  isFitOnResize?: boolean,
+  isFitOnResize?: boolean;
   /** Является ли девайс мобильным устройством */
-  isMobile?: boolean,
+  isMobile?: boolean;
   /** Размеры мобильного девайса, под который ориентированы макеты */
-  mobileWindowSize?: WindowSize,
+  mobileWindowSize?: WindowSize;
   /** Размеры десктопного девайса, под который ориентированы макеты */
-  desktopWindowSize?: WindowSize,
+  desktopWindowSize?: WindowSize;
   /** Размер шрифта html, то есть значение 1rem */
   htmlFontSize?: number;
   /** Минимальный размер шрифта html, чтобы содержимое страницы не было слишком мелким */
   minFontSize?: number | null;
   /** Максимальный размер шрифта html */
   maxFontSize?: number | null;
-}
+};

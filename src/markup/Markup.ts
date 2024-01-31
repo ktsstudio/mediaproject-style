@@ -1,10 +1,12 @@
 import { action, computed, makeObservable, observable } from 'mobx';
 
+import { WindowSize, IMarkup, MarkupConfig } from '../types/markup';
 import { debounce } from '../utils/debounce';
 
-import { WindowSize, IMarkup, MarkupConfig } from '../types/markup';
-
-type PrivateFields = '_currentHtmlFontSize' | '_updateHtmlFontSize' | '_checkEdgeHtmlFontSize';
+type PrivateFields =
+  | '_currentHtmlFontSize'
+  | '_updateHtmlFontSize'
+  | '_checkEdgeHtmlFontSize';
 
 const DEFAULT_HTML_FONT_SIZE = 10;
 
@@ -86,7 +88,10 @@ export default class Markup implements IMarkup {
   }
 
   private _checkEdgeHtmlFontSize(): void {
-    if (this._maxFontSize !== null && this._currentHtmlFontSize > this._maxFontSize) {
+    if (
+      this._maxFontSize !== null &&
+      this._currentHtmlFontSize > this._maxFontSize
+    ) {
       this._currentHtmlFontSize = this._maxFontSize;
     }
 
@@ -96,7 +101,8 @@ export default class Markup implements IMarkup {
   }
 
   private _updateHtmlFontSize(): void {
-    const { width: currentWindowWidth, height: currentWindowHeight } = this._currentWindowSize;
+    const { width: currentWindowWidth, height: currentWindowHeight } =
+      this._currentWindowSize;
 
     const { width: windowWidth, height: windowHeight } = this._isMobile
       ? this._mobileWindowSize
@@ -116,7 +122,9 @@ export default class Markup implements IMarkup {
     let currentScale = Math.min(scaleX, scaleY);
 
     if (currentWindowHeight > currentWindowWidth * 2) {
-      currentScale += 0.1 * (currentWindowHeight / (currentWindowWidth * 2 + currentWindowHeight));
+      currentScale +=
+        0.1 *
+        (currentWindowHeight / (currentWindowWidth * 2 + currentWindowHeight));
     }
 
     const result = currentScale * this._htmlFontSize;

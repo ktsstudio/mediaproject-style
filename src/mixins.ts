@@ -169,7 +169,9 @@ export const centerPos = (config?: {
 }): FlattenSimpleInterpolation => {
   const x = !config?.axis || config?.axis === 'x' ? '-50%' : '0';
   const y = !config?.axis || config?.axis === 'y' ? '-50%' : '0';
-  const translate = config?.is3d ? `translate3d(${x}, ${y}, 0)` : `translate(${x}, ${y})`;
+  const translate = config?.is3d
+    ? `translate3d(${x}, ${y}, 0)`
+    : `translate(${x}, ${y})`;
 
   return css`
     top: 50%;
@@ -321,7 +323,7 @@ export const aspectRatio = (
 
     @supports not (aspect-ratio: ${aspectRatioValue}) {
       &::after {
-        content: "";
+        content: '';
         display: block;
         width: 100%;
         padding-bottom: calc(100% * (${height} / ${width}));
@@ -348,21 +350,19 @@ export const fixSafariRadiusOverflow = css`
  * @param config.radius Скругление ползунка и фона. Необязательный параметр, по умолчанию без скругления
  * @param config.orientation Значение overflow: all | y | x. Необязательный параметр, по умолчанию all
  */
-export const customScrollbar = (
-  {
-    thumbColor,
-    bgColor,
-    size,
-    radius = 0,
-    orientation = 'all',
-  }: {
-    thumbColor: string,
-    bgColor: string,
-    size: number,
-    radius?: number,
-    orientation?: string,
-  }
-): FlattenSimpleInterpolation => {
+export const customScrollbar = ({
+  thumbColor,
+  bgColor,
+  size,
+  radius = 0,
+  orientation = 'all',
+}: {
+  thumbColor: string;
+  bgColor: string;
+  size: number;
+  radius?: number;
+  orientation?: string;
+}): FlattenSimpleInterpolation => {
   const commonStyles = css`
     &::-webkit-scrollbar-track {
       background-color: ${bgColor};
@@ -461,15 +461,11 @@ export const flexGap = (
   `)}
 `;
 
-export const pxToRem = (
-  px: number,
-  baseRemInPx = 16
-): number => px / baseRemInPx;
+export const pxToRem = (px: number, baseRemInPx = 16): number =>
+  px / baseRemInPx;
 
-export const round = (
-  number: number,
-  decimals: number
-): number => Number(number.toFixed(decimals));
+export const round = (number: number, decimals: number): number =>
+  Number(number.toFixed(decimals));
 
 /**
  * Задание адаптивного размера
