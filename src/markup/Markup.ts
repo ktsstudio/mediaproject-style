@@ -1,4 +1,3 @@
-import { checkMobile } from '@ktsstudio/mediaproject-utils';
 import { action, computed, makeObservable, observable } from 'mobx';
 
 import { debounce } from '../utils/debounce';
@@ -25,8 +24,8 @@ export default class Markup implements IMarkup {
   /** Пересчитывать ли размер шрифта при ресайзе экрана или перевороте экрана моб. устройства */
   private readonly _isFitOnResize: boolean;
 
-  /** Осуществлять ли проверку, является ли девайс мобильным устройством (функция checkMobile) */
-  private readonly _withCheckMobile: boolean;
+  /** Является ли девайс мобильным устройством */
+  private readonly _isMobile: boolean;
 
   /** Размеры мобильного девайса, под который ориентированы макеты */
   private readonly _mobileWindowSize: WindowSize;
@@ -53,7 +52,7 @@ export default class Markup implements IMarkup {
 
   constructor(config?: MarkupConfig) {
     this._isFitOnResize = config?.isFitOnResize ?? false;
-    this._withCheckMobile = config?.withCheckMobile ?? true;
+    this._isMobile = config?.isMobile ?? true;
     this._mobileWindowSize = config?.mobileWindowSize ?? DEFAULT_MOBILE_SIZE;
     this._desktopWindowSize = config?.desktopWindowSize ?? DEFAULT_DESKTOP_SIZE;
     this._htmlFontSize = config?.htmlFontSize ?? DEFAULT_HTML_FONT_SIZE;
@@ -99,7 +98,7 @@ export default class Markup implements IMarkup {
   private _updateHtmlFontSize(): void {
     const { width: currentWindowWidth, height: currentWindowHeight } = this._currentWindowSize;
 
-    const { width: windowWidth, height: windowHeight } = window.is_mobile
+    const { width: windowWidth, height: windowHeight } = this._isMobile
       ? this._mobileWindowSize
       : this._desktopWindowSize;
 
@@ -130,10 +129,6 @@ export default class Markup implements IMarkup {
       height: window.innerHeight,
       width: window.innerWidth,
     };
-
-    if (this._withCheckMobile) {
-      checkMobile();
-    }
 
     this._updateHtmlFontSize();
     this._checkEdgeHtmlFontSize();
