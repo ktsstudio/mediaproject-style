@@ -15,8 +15,6 @@ import {
   animate,
   square,
   centerPos,
-  centerPosX,
-  centerPosY,
   backgroundImageCover,
   backgroundImageContain,
   absoluteBackgroundPosition,
@@ -31,7 +29,6 @@ import {
   adaptiveContentWidth,
 } from './mixins';
 import { WindowSize, MarkupConfig } from './types/markup';
-import { WindowType } from './types/window';
 
 const mixins = {
   mobile,
@@ -48,8 +45,6 @@ const mixins = {
   animate,
   square,
   centerPos,
-  centerPosX,
-  centerPosY,
   backgroundImageCover,
   backgroundImageContain,
   absoluteBackgroundPosition,
@@ -71,4 +66,4 @@ const animations = {
 
 export { markup, initMarkup, mixins, animations };
 
-export { WindowSize, MarkupConfig, WindowType };
+export { WindowSize, MarkupConfig };

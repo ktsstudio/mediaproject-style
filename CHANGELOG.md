@@ -3,6 +3,7 @@
 - [+] новые функции: `px-to-rem`, `round`, `fluid`, `safe-top-value`, `safe-bottom-value`
 - [*] миксины `backgroundImageCover`, `backgroundImageContain`, `centerPos`
 - [*] утилита markup переписана на классах, появилась возможность обращаться к `currentHtmlFontSize`
+- [-] из зависимостей убрана библиотека @ktsstudio/mediaproject-utils
 
 ### v3.0.0
 - [-] удалены миксины и утилиты, использующие переменные vkui
