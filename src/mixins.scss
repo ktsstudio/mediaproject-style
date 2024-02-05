@@ -133,8 +133,8 @@
     translate($x, $y)
   );
 
-  top: 50%;
-  left: 50%;
+  top: if($y == 0, auto, 50%);
+  left: if($x == 0, auto, 50%);
   transform: $translate map.get($config, properties);
 }
 
@@ -237,7 +237,7 @@
 }
 
 /// Умножает на один и тот же множитель переданные ширину и высоту
-@mixin ratioWidthHeight($width, $height, $factor: 1) {
+@mixin scaleWidthHeight($width, $height, $factor: 1) {
   width: calc($width * $factor);
   height: calc($height * $factor);
 }
@@ -262,6 +262,7 @@
 }
 
 /// Фиксит в safari мерцание острых углов при overflow:hidden и border-radius
+/// Здесь data:image/png - это квадратное изображение 1x1 с черным фоном
 @mixin fixSafariRadiusOverflow {
   -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
 }

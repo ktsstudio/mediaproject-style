@@ -17,4 +17,4 @@ const initMarkup = (config?: MarkupConfig): void => {
   markup = new Markup(config);
 };
 
-export { markup, initMarkup };
+export { markup, initMarkup, Markup };

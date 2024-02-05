@@ -1,12 +1,5 @@
-import { action, computed, makeObservable, observable } from 'mobx';
-
 import { WindowSize, IMarkup, MarkupConfig } from '../types/markup';
-import { debounce } from '../utils/debounce';
-
-type PrivateFields =
-  | '_currentHtmlFontSize'
-  | '_updateHtmlFontSize'
-  | '_checkEdgeHtmlFontSize';
+import { throttle } from '../utils/throttle';
 
 const DEFAULT_HTML_FONT_SIZE = 10;
 
@@ -44,10 +37,6 @@ export default class Markup implements IMarkup {
   /** Максимальный размер шрифта html */
   private readonly _maxFontSize: number | null;
 
-  /** Текущий размер экрана на момент ресайза */
-  // @ts-ignore
-  private _currentWindowSize: WindowSize;
-
   /* Текущий размер шрифта тега html */
   // @ts-ignore
   private _currentHtmlFontSize: number;
@@ -64,45 +53,37 @@ export default class Markup implements IMarkup {
     this.fit();
 
     if (this._isFitOnResize) {
-      window.addEventListener('resize', this.debouncedFit);
+      window.addEventListener('resize', this.throttledFit);
     }
-
-    makeObservable<Markup, PrivateFields>(this, {
-      _currentHtmlFontSize: observable,
-
-      currentHtmlFontSize: computed,
-      debouncedFit: computed,
-
-      fit: action.bound,
-      _updateHtmlFontSize: action.bound,
-      _checkEdgeHtmlFontSize: action.bound,
-    });
   }
 
-  get debouncedFit(): VoidFunction {
-    return debounce(this.fit.bind(this));
+  get throttledFit(): VoidFunction {
+    return throttle(this.fit.bind(this));
   }
 
-  get currentHtmlFontSize(): number | null {
+  get currentHtmlFontSize(): number {
     return this._currentHtmlFontSize;
   }
 
-  private _checkEdgeHtmlFontSize(): void {
-    if (
-      this._maxFontSize !== null &&
-      this._currentHtmlFontSize > this._maxFontSize
-    ) {
+  set currentHtmlFontSize(value: number) {
+    if (this._maxFontSize !== null && value > this._maxFontSize) {
       this._currentHtmlFontSize = this._maxFontSize;
+
+      return;
     }
 
-    if (this._currentHtmlFontSize < this._minFontSize) {
+    if (value < this._minFontSize) {
       this._currentHtmlFontSize = this._minFontSize;
+
+      return;
     }
+
+    this._currentHtmlFontSize = value;
   }
 
-  private _updateHtmlFontSize(): void {
-    const { width: currentWindowWidth, height: currentWindowHeight } =
-      this._currentWindowSize;
+  fit(): void {
+    const currentWindowWidth = window.innerWidth;
+    const currentWindowHeight = window.innerHeight;
 
     const { width: windowWidth, height: windowHeight } = this._isMobile
       ? this._mobileWindowSize
@@ -129,17 +110,7 @@ export default class Markup implements IMarkup {
 
     const result = currentScale * this._htmlFontSize;
 
-    this._currentHtmlFontSize = this.round(result);
-  }
-
-  fit(): void {
-    this._currentWindowSize = {
-      height: window.innerHeight,
-      width: window.innerWidth,
-    };
-
-    this._updateHtmlFontSize();
-    this._checkEdgeHtmlFontSize();
+    this.currentHtmlFontSize = this.round(result);
 
     document.documentElement.style.fontSize = `${this._currentHtmlFontSize}px`;
   }
@@ -157,6 +128,6 @@ export default class Markup implements IMarkup {
   }
 
   destroy(): void {
-    window.removeEventListener('resize', this.debouncedFit);
+    window.removeEventListener('resize', this.throttledFit);
   }
 }

@@ -1,7 +1,8 @@
 ### v4.0.0
-- [+] новые миксины: `mvk`, `odr`, `ratioWidthHeight`, `aspectRatio`, `fixSafariRadiusOverflow`, `customScrollbar`, `ifFlexGapNotSupported`, `flexGap`
+- [+] новые миксины: `mvk`, `odr`, `scaleWidthHeight`, `aspectRatio`, `fixSafariRadiusOverflow`, `customScrollbar`, `ifFlexGapNotSupported`, `flexGap`
 - [+] новые функции: `px-to-rem`, `round`, `fluid`, `safe-top-value`, `safe-bottom-value`
-- [*] миксины `backgroundImageCover`, `backgroundImageContain`, `centerPos`
+- [*] в миксинах `backgroundImageCover`, `backgroundImageContain` параметр `image` стал необязательным
+- [*] миксин `centerPos` теперь принимает в качестве параметра объект с настройками: выбор оси - `axis`, дополнительные значения transform - `properties` и возможность использовать transform3d вместо transform - `is-3d`
 - [*] утилита markup переписана на классах, появилась возможность обращаться к `currentHtmlFontSize`
 - [-] из зависимостей убрана библиотека @ktsstudio/mediaproject-utils
 

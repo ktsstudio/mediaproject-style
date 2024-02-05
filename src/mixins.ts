@@ -174,8 +174,8 @@ export const centerPos = (config?: {
     : `translate(${x}, ${y})`;
 
   return css`
-    top: 50%;
-    left: 50%;
+    top: ${y === '0' ? 'auto' : '50%'};
+    left: ${x === '0' ? 'auto' : '50%'};
     transform: ${translate} ${config?.properties};
   `;
 };
@@ -303,7 +303,7 @@ export const adaptiveContentWidth = (
 `;
 
 /** Умножает на один и тот же множитель переданные ширину и высоту */
-export const ratioWidthHeight = (
+export const scaleWidthHeight = (
   width: string,
   height: string,
   factor = 1
