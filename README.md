@@ -12,50 +12,74 @@
 
 ## Содержимое
 
-### Методы
+### Утилиты
 
-* [markup](./src/markup.ts) - утилита для адаптивной верстки на rem
+* [markup](./src/markup) — утилита для адаптивной верстки на rem
+
+Чтобы использовать адаптивную верстку на rem, необходимо при инициализации приложения вызвать функцию initMarkup и передать в нее нужные параметры:
+
+```typescript
+import { initMarkup } from '@ktsstudio/mediaproject-style';
+
+...
+
+initMarkup();
+```
+
+Утилита создает объект типа Markup и экспортирует его в виде переменной markup. При необходимости к ней можно обратиться:
+
+```typescript
+import { markup } from '@ktsstudio/mediaproject-style';
+
+...
+
+console.log(markup.currentHtmlFontSize);
+```
 
 ### Миксины и анимации
 
-* [mixins.ts](./src/mixins.ts) - миксины для styled-components
-* [animations.ts](./src/animations.ts) - анимации для styled-components
-* [mixins.scss](./src/mixins.scss) - миксины для Sass
-* [animations.scss](./src/animations.scss) - анимации для Sass
+* [mixins.ts](./src/mixins.ts) — миксины для styled-components
+* [animations.ts](./src/animations.ts) — анимации для styled-components
+* [mixins.scss](./src/mixins.scss) — миксины для Sass
+* [animations.scss](./src/animations.scss) — анимации для Sass
 
 Чтобы использовать миксин или анимацию в проекте с styled-components, импортируйте нужный объект из библиотеки:
 
 ```typescript
-import { markup } from '@ktsstudio/mediaproject-style';
-или
-import markup from '@ktsstudio/mediaproject-style/dist/es/markup';
+import { mixins } from '@ktsstudio/mediaproject-style';
+
+...
+
+${mixins.centerPos()};
 ```
 
 Чтобы использовать миксин или анимацию в проекте с Sass, импортируйте файл с ними:
 
 ```scss
 @import '~@ktsstudio/mediaproject-style/dist/mixins';
+
+...
+
+@include centerPos;
 ```
 
 ### Использование с SSR на примере Next.js
 
-Для корректной работы библиотеки с Next.js необходимо использовать функции, которые не содержат обращения к window.
+Для корректной работы утилиты markup с Next.js необходимо вызывать функцию инициализации в useEffect.
 
 Пример:
 
 ```typescript
-import markup from '@ktsstudio/mediaproject-style/dist/es/markup';
+import { initMarkup } from '@ktsstudio/mediaproject-style';
+
+...
+
+React.useEffect(() => {
+  initMarkup();
+}, []);
 ```
 
-В случае если функция нужна только на клиенте, можно подгрузить библиотеку асинхронно, либо воспользоваться [next/dynamic](https://nextjs.org/docs/advanced-features/dynamic-import):
-
-```typescript
- React.useEffect(() => {
-    import('@ktsstudio/mediaproject-style/dist/es/markup').then((module) => {
-      ...
-    })
-  }, []);
-```
+Импорт миксинов и анимаций в SSR не меняется.
 
 ## Обратная связь
 

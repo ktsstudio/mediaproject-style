@@ -1,5 +1,5 @@
 import { fadeAnimation, appearAnimation } from './animations';
-import markup from './markup';
+import { markup, initMarkup, Markup } from './markup';
 import {
   mobile,
   desktop,
@@ -15,8 +15,6 @@ import {
   animate,
   square,
   centerPos,
-  centerPosX,
-  centerPosY,
   backgroundImageCover,
   backgroundImageContain,
   absoluteBackgroundPosition,
@@ -30,8 +28,7 @@ import {
   adaptiveSidePadding,
   adaptiveContentWidth,
 } from './mixins';
-import { WindowSize, MarkupConst, MarkupType } from './types/markup';
-import { WindowType } from './types/window';
+import { WindowSize, MarkupConfig } from './types/markup';
 
 const mixins = {
   mobile,
@@ -48,8 +45,6 @@ const mixins = {
   animate,
   square,
   centerPos,
-  centerPosX,
-  centerPosY,
   backgroundImageCover,
   backgroundImageContain,
   absoluteBackgroundPosition,
@@ -69,6 +64,6 @@ const animations = {
   appearAnimation,
 };
 
-export { markup, mixins, animations };
+export { markup, initMarkup, Markup, mixins, animations };
 
-export { WindowSize, MarkupConst, MarkupType, WindowType };
+export { WindowSize, MarkupConfig };

@@ -1,3 +1,6 @@
+@use 'sass:math';
+@use 'sass:map';
+
 @mixin mobile {
   :global(.mobile) & {
     @content;
@@ -18,6 +21,18 @@
 
 @mixin android {
   :global(.android) & {
+    @content;
+  }
+}
+
+@mixin mvk {
+  :global(.mvk) & {
+    @content;
+  }
+}
+
+@mixin odr {
+  :global(.odr) & {
     @content;
   }
 }
@@ -84,28 +99,69 @@
   height: $side;
 }
 
-@mixin centerPos($restProperties...) {
-  top: 50%;
-  left: 50%;
-  transform: translate3d(-50%, -50%, 0) join($restProperties, (), space);
+/// Центрирует элемент.
+/// Идея была добавить возможность выбирать translate3d или translate.
+/// Использовать translate3d стоит с осторожностью. Например, если элемент
+/// содержит тяжелую графику, то это может плохо сказываться на производительности,
+/// т.к. все translate3d передаются на обработку в gpu.
+/// Также надо следить за отображением в сафари, т.к. бывают проблемы с z-index.
+///
+/// @param $config - scss map с настройками
+/// @param $config[is-3d] Использовать ли translate3d() вместо translate()
+/// @param $config[axis] Ось, относительно которой центрировать. Необязательный параметр. По умолчанию центрируется по обеим осям
+/// @param $config[properties] Дополнительные значения transform (rotate, scale и т.д.) Необязательный параметр.
+///
+/// @example
+///   @include centerPos;
+///
+/// @example
+///   @include centerPos((
+///     is-3d: true,
+///     axis: y,
+///     properties: scale(.5) rotate(45deg)
+///   ));
+@mixin centerPos(
+  $config: (
+    is-3d: false,
+  )
+) {
+  $x: if(map.get($config, axis) == x or not map.get($config, axis), -50%, 0);
+  $y: if(map.get($config, axis) == y or not map.get($config, axis), -50%, 0);
+  $translate: if(
+    map.get($config, is-3d),
+    translate3d($x, $y, 0),
+    translate($x, $y)
+  );
+
+  @if $y == -50% {
+    top: 50%;
+  }
+
+  @if $x == -50% {
+    left: 50%;
+  }
+
+  transform: $translate map.get($config, properties);
 }
 
-@mixin centerPosX($restProperties...) {
-  left: 50%;
-  transform: translate3d(-50%, 0, 0) join($restProperties, (), space);
+@mixin backgroundImageCover($image: false) {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+
+  @if $image {
+    background-image: url(#{$image});
+  }
 }
 
-@mixin centerPosY($restProperties...) {
-  top: 50%;
-  transform: translate3d(0, -50%, 0) join($restProperties, (), space);
-}
+@mixin backgroundImageContain($image: false) {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
 
-@mixin backgroundImageCover($image) {
-  background: url(#{$image}) no-repeat center / cover;
-}
-
-@mixin backgroundImageContain($image) {
-  background: url(#{$image}) no-repeat center / contain;
+  @if $image {
+    background-image: url(#{$image});
+  }
 }
 
 @mixin backgroundPosition($zIndex: -1) {
@@ -184,4 +240,191 @@
   @include desktop {
     width: calc(100vw - 2 * #{$desktopPadding});
   }
+}
+
+/// Умножает на один и тот же множитель переданные ширину и высоту
+@mixin scaleWidthHeight($width, $height, $factor: 1) {
+  width: calc($width * $factor);
+  height: calc($height * $factor);
+}
+
+/// Устанавливает соотношение сторон элемента, равное $width / $height.
+/// Не сработает, когда у элемента заданы и ширина, и высота,
+/// или в случае, если не задан ни один из размеров.
+/// Если свойство aspect-ratio не поддерживается, то используется прием с padding-top.
+@mixin aspectRatio($width, $height) {
+  $aspectRatio: math.div($width, $height);
+
+  aspect-ratio: $aspectRatio;
+
+  @supports not (aspect-ratio: $aspectRatio) {
+    &::after {
+      content: '';
+      display: block;
+      width: 100%;
+      padding-bottom: calc(100% * ($height / $width));
+    }
+  }
+}
+
+/// Фиксит в safari мерцание острых углов при overflow:hidden и border-radius
+/// Здесь data:image/png - это квадратное изображение 1x1 с черным фоном
+@mixin fixSafariRadiusOverflow {
+  -webkit-mask-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAIAAACQd1PeAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAA5JREFUeNpiYGBgAAgwAAAEAAGbA+oJAAAAAElFTkSuQmCC);
+}
+
+/// Кастомизирует нативный скролбар
+///
+/// @param $config - scss map с настройками
+/// @param $config[thumb-color] Цвет ползунка
+/// @param $config[bg-color] Цвет фона области прокрутки
+/// @param $config[size] Размер скролбара. Для горизонтального это высота, для вертикального - ширина
+/// @param $config[radius] Скругление ползунка и фона. Необязательный параметр, по умолчанию без скругления
+/// @param $config[orientation] Значение overflow: all | y | x. Необязательный параметр, по умолчанию all
+///
+/// @example
+///   @include customScrollbar((
+///     thumb-color: green,
+///     bg-color: lime,
+///     size: 10px,
+///   ));
+@mixin customScrollbar($config) {
+  $thumbColor: map.get($config, thumb-color);
+  $bgColor: map.get($config, bg-color);
+  $size: map.get($config, size);
+  $radius: if(map.get($config, radius), map.get($config, radius), 0);
+  $orientation: if(
+    map.get($config, orientation),
+    map.get($config, orientation),
+    all
+  );
+
+  @if $orientation == all {
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      width: $size;
+      height: $size;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+  }
+
+  @if $orientation == y {
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: $size;
+      height: 0;
+    }
+  }
+
+  @if $orientation == x {
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: $size;
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $bgColor;
+    border-radius: $radius;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $radius;
+    box-shadow: 0 0 20px 20px $thumbColor inset;
+  }
+
+  // стилизация элементов прокрутки для Firefox
+  scrollbar-color: $thumbColor $bgColor;
+  scrollbar-width: $size;
+
+  // стилизация элементов прокрутки для IE и Edge
+  -ms-overflow-style: none;
+  scrollbar-base-color: $bgColor;
+  scrollbar-face-color: $thumbColor;
+  scrollbar-arrow-color: $bgColor;
+}
+
+/// Проверка поддержки __flexbox gaps__ по наиболее близкому по поддержке свойству
+/// @link https://github.com/w3c/csswg-drafts/issues/3559#issuecomment-1758459996
+///
+/// @example
+///   .flex-row {
+///     display: flex;
+///     flex-flow: row;
+///     gap: 15px;
+///
+///     @include ifFlexGapNotSupported {
+///       & > *:not(:last-child) {
+///         margin-right: 15px;
+///       }
+///     }
+///   }
+@mixin ifFlexGapNotSupported {
+  @supports not (inset: 0) {
+    @content;
+  }
+}
+
+/// Установка __flexbox gaps__ с простым вариантом fallback
+///
+/// (!) В случае fallback'а на контейнере будут установлены отрицательные margin
+@mixin flexGap($row: 0, $col: 0) {
+  gap: $row $col;
+
+  @include ifFlexGapNotSupported {
+    margin: calc(-1 * $row / 2) calc(-1 * $col / 2);
+
+    & > * {
+      margin: calc($row / 2) calc($col / 2);
+    }
+  }
+}
+
+@function px-to-rem($px, $baseRemInPx: 16px) {
+  $rems: math.div($px, $baseRemInPx) * 1rem;
+
+  @return $rems;
+}
+
+@function round($number, $decimals: 0) {
+  $pow: math.pow(10, $decimals);
+
+  @return math.div(math.round($number * $pow), $pow);
+}
+
+/// Задание адаптивного размера
+/// @link https://www.smashingmagazine.com/2022/10/fluid-typography-clamp-sass-functions/
+@function fluid(
+  $minSize,
+  $maxSize,
+  $minBreakpoint: 320px,
+  $maxBreakpoint: 1440px,
+  $unit: vw
+) {
+  $slope: math.div($maxSize - $minSize, $maxBreakpoint - $minBreakpoint);
+  $slopeToUnit: round($slope * 100, 3);
+  $interceptRem: round(px-to-rem($minSize - $slope * $minBreakpoint), 3);
+  $minSizeRem: round(px-to-rem($minSize), 3);
+  $maxSizeRem: round(px-to-rem($maxSize), 3);
+
+  @return min(
+    max(#{$minSizeRem}, #{$slopeToUnit}#{$unit} + #{$interceptRem}),
+    #{$maxSizeRem}
+  );
+}
+
+@function safe-top-value($value: 0) {
+  @return calc($value + env(safe-area-inset-top));
+}
+
+@function safe-bottom-value($value: 0) {
+  @return calc($value + env(safe-area-inset-bottom));
 }
