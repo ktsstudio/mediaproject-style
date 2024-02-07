@@ -133,8 +133,14 @@
     translate($x, $y)
   );
 
-  top: if($y == 0, auto, 50%);
-  left: if($x == 0, auto, 50%);
+  @if $y == -50% {
+    top: 50%;
+  }
+
+  @if $x == -50% {
+    left: 50%;
+  }
+
   transform: $translate map.get($config, properties);
 }
 

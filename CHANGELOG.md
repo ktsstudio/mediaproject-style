@@ -1,4 +1,4 @@
-### v4.0.0
+# v4.0.0
 - [+] новые миксины: `mvk`, `odr`, `scaleWidthHeight`, `aspectRatio`, `fixSafariRadiusOverflow`, `customScrollbar`, `ifFlexGapNotSupported`, `flexGap`
 - [+] новые функции: `px-to-rem`, `round`, `fluid`, `safe-top-value`, `safe-bottom-value`
 - [*] в миксинах `backgroundImageCover`, `backgroundImageContain` параметр `image` стал необязательным
@@ -6,7 +6,7 @@
 - [*] утилита markup переписана на классах, появилась возможность обращаться к `currentHtmlFontSize`
 - [-] из зависимостей убрана библиотека @ktsstudio/mediaproject-utils
 
-### v3.0.0
+# v3.0.0
 - [-] удалены миксины и утилиты, использующие переменные vkui
 
 ### v2.0.3
@@ -21,13 +21,13 @@
 - [*] markup defaultMobileSize изменен на размер iphone x
 - [*] опечатка в миксине centerPosY (closing issue #4)
 
-## v2.0.0
+# v2.0.0
 - [+] appearAnimation
 - [+] утилиты для работы с отступами и хедером в ВК-миниаппе
 - [*] исправлены миксины с использованием глобальных классов
 - [*] fadeAnimation принимает длительность анимации и параметр наличия анимации пульсации
 
-## v1.0.0
+# v1.0.0
 - [+] checkIOS
 - [+] checkMobile
 - [+] markup

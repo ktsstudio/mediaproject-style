@@ -174,8 +174,16 @@ export const centerPos = (config?: {
     : `translate(${x}, ${y})`;
 
   return css`
-    top: ${y === '0' ? 'auto' : '50%'};
-    left: ${x === '0' ? 'auto' : '50%'};
+    ${y === '-50%' &&
+    css`
+      top: 50%;
+    `};
+
+    ${x === '-50%' &&
+    css`
+      left: 50%;
+    `};
+
     transform: ${translate} ${config?.properties};
   `;
 };
