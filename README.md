@@ -38,20 +38,8 @@ console.log(markup.currentHtmlFontSize);
 
 ### Миксины и анимации
 
-* [mixins.ts](./src/mixins.ts) — миксины для styled-components
-* [animations.ts](./src/animations.ts) — анимации для styled-components
 * [mixins.scss](./src/mixins.scss) — миксины для Sass
 * [animations.scss](./src/animations.scss) — анимации для Sass
-
-Чтобы использовать миксин или анимацию в проекте с styled-components, импортируйте нужный объект из библиотеки:
-
-```typescript
-import { mixins } from '@ktsstudio/mediaproject-style';
-
-...
-
-${mixins.centerPos()};
-```
 
 Чтобы использовать миксин или анимацию в проекте с Sass, импортируйте файл с ними:
 
