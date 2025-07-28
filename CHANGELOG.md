@@ -1,6 +1,7 @@
 # v5.0.0
 - [-] анимации и миксины на styled-components
 - [-] зависимость styled-components
+- [*] изменена ссылка на реджестри и название пакета
 
 # v4.0.0
 - [+] новые миксины: `mvk`, `odr`, `scaleWidthHeight`, `aspectRatio`, `fixSafariRadiusOverflow`, `customScrollbar`, `ifFlexGapNotSupported`, `flexGap`

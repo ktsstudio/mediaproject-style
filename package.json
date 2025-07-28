@@ -1,5 +1,5 @@
 {
-  "name": "@ktsstudio/mediaproject-style",
+  "name": "@kts-specials/mediaproject-style",
   "version": "5.0.0",
   "description": "Package with common styles for media projects",
   "author": "KTS Studio <hello@ktsstudio.ru> (https://kts.studio)",
@@ -10,6 +10,9 @@
   "bugs": {
     "email": "hello@ktsstudio.ru",
     "url": "https://github.com/ktsstudio/mediaproject-style/issues"
+  },
+  "publishConfig": {
+    "registry": "https://nexus.team.ktsstudio.ru/repository/ktsnpm/"
   },
   "homepage": "https://github.com/ktsstudio/mediaproject-style#readme",
   "license": "MIT",
