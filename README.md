@@ -1,14 +1,14 @@
 ![kts](./logo.png)
 
-# @ktsstudio/mediaproject-style
+# @kts-specials/mediaproject-style
 
 Пакет с общими стилями для медиапроектов.
 
 ## Использование
 
-`npm install @ktsstudio/mediaproject-style`
+`npm install @kts-specials/mediaproject-style`
 
-`yarn add @ktsstudio/mediaproject-style`
+`yarn add @kts-specials/mediaproject-style`
 
 ## Содержимое
 
@@ -19,7 +19,7 @@
 Чтобы использовать адаптивную верстку на rem, необходимо при инициализации приложения вызвать функцию initMarkup и передать в нее нужные параметры:
 
 ```typescript
-import { initMarkup } from '@ktsstudio/mediaproject-style';
+import { initMarkup } from '@kts-specials/mediaproject-style';
 
 ...
 
@@ -29,7 +29,7 @@ initMarkup();
 Утилита создает объект типа Markup и экспортирует его в виде переменной markup. При необходимости к ней можно обратиться:
 
 ```typescript
-import { markup } from '@ktsstudio/mediaproject-style';
+import { markup } from '@kts-specials/mediaproject-style';
 
 ...
 
@@ -44,7 +44,7 @@ console.log(markup.currentHtmlFontSize);
 Чтобы использовать миксин или анимацию в проекте с Sass, импортируйте файл с ними:
 
 ```scss
-@import '~@ktsstudio/mediaproject-style/dist/mixins';
+@import '~@kts-specials/mediaproject-style/dist/mixins';
 
 ...
 
@@ -58,7 +58,7 @@ console.log(markup.currentHtmlFontSize);
 Пример:
 
 ```typescript
-import { initMarkup } from '@ktsstudio/mediaproject-style';
+import { initMarkup } from '@kts-specials/mediaproject-style';
 
 ...
 
